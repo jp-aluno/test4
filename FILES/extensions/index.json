@@ -6,25 +6,20 @@
       "extensions": [
         {
           "extension": ".wav",
-          "platform": "All",
-          "description": "Standard uncompressed audio files, typically supporting stereo for music and ambiance."
+          "platform": "ALL",
+          "description": "Standard uncompressed audio files."
         },
         {
           "extension": ".wav",
           "platform": "PS2",
           "parameters": { "codec": "PCM_S16LE", "sample_rate": 44100, "channels": 1, "endianness": "little" },
-          "description": "Uncompressed mono audio files used for character dialogue and environmental effects on PS2."
-        },
-        {
-          "extension": ".wav",
-          "platform": "PC",
-          "description": "Standard uncompressed audio files, typically supporting stereo for music and ambiance."
+          "description": "Uncompressed mono dialogue/env effects for PS2."
         },
         {
           "extension": ".vag",
           "platform": "PS2",
           "parameters": { "codec": "ADPCM_PSX", "sample_rate": 44100, "block_align": 16, "interleave": 0, "header": "VAGp" },
-          "description": "Compressed audio format typically used for PlayStation 2 specific sound data."
+          "description": "Compressed PS2-specific audio data."
         }
       ]
     },
@@ -34,18 +29,70 @@
       "extensions": [
         {
           "extension": ".smd",
-          "platform": "All",
-          "description": "Standard 3D model files containing mesh and skeleton data (Source: smd)."
+          "platform": "ALL",
+          "description": "Standard 3D model files (mesh and skeleton)."
         },
         {
           "extension": ".dol",
           "platform": "PS2",
-          "description": "3D geometry and animation data for characters, NPCs, and physics objects."
+          "description": "3D geometry and animation data for PS2 NPCs/Physics."
         },
         {
           "extension": ".mdl",
           "platform": "PC",
-          "description": "Standard 3D model files containing mesh and skeleton data (Source: smd)."
+          "description": "Compiled 3D model files for PC."
+        }
+      ]
+    },
+    {
+      "category": "Maps",
+      "icon": "🧱",
+      "extensions": [
+        {
+          "extension": ".map",
+          "platform": "ALL",
+          "description": "Uncompiled map source files."
+        },
+        {
+          "extension": ".bs2",
+          "platform": "PS2",
+          "description": "Compiled geometry for PS2 levels."
+        },
+        {
+          "extension": ".bsp",
+          "platform": "PC",
+          "description": "Compiled binary space partition map for PC."
+        },
+        {
+          "extension": ".rmf",
+          "platform": "PC",
+          "description": "Rich Map Format; editor-specific source."
+        }
+      ]
+    },
+    {
+      "category": "Image",
+      "icon": "🖼️",
+      "extensions": [
+        {
+          "extension": ".png",
+          "platform": "ALL",
+          "description": "Portable Network Graphics for textures and UI."
+        },
+        {
+          "extension": ".tga",
+          "platform": "PC",
+          "description": "Targa graphic files for high-fidelity textures."
+        },
+        {
+          "extension": ".bmp",
+          "platform": "PC",
+          "description": "Standard bitmap image files."
+        },
+        {
+          "extension": ".ico",
+          "platform": "PC",
+          "description": "Menu icons and save-game indicators."
         }
       ]
     },
@@ -56,33 +103,7 @@
         {
           "extension": ".nod",
           "platform": "PS2",
-          "description": "AI pathfinding nodes that tell NPCs where they can move within a level."
-        }
-      ]
-    },
-    {
-      "category": "Maps",
-      "icon": "🧱",
-      "extensions": [
-        {
-          "extension": ".map",
-          "platform": "All",
-          "description": "Uncompiled map source files used in level editors."
-        },
-        {
-          "extension": ".bs2",
-          "platform": "PS2",
-          "description": "Compiled map and geometry data defining the physical structure of game levels."
-        },
-        {
-          "extension": ".bsp",
-          "platform": "PC",
-          "description": "Compiled map and geometry data defining the physical structure of game levels."
-        },
-        {
-          "extension": ".rmf",
-          "platform": "PC",
-          "description": "Rich Map Format; editor-specific map source for PC."
+          "description": "AI pathfinding nodes for NPCs."
         }
       ]
     },
@@ -93,33 +114,7 @@
         {
           "extension": ".psi",
           "platform": "PS2",
-          "description": "User interface graphics, such as menus, buttons, and sliders."
-        }
-      ]
-    },
-    {
-      "category": "Image",
-      "icon": "🖼️",
-      "extensions": [
-        {
-          "extension": ".png",
-          "platform": "All",
-          "description": "Targa graphic files used for high-fidelity textures."
-        },
-        {
-          "extension": ".tga",
-          "platform": "PC",
-          "description": "Targa graphic files used for high-fidelity textures."
-        },
-        {
-          "extension": ".bmp",
-          "platform": "PC",
-          "description": "Standard bitmap image files used for static graphics or textures."
-        },
-        {
-          "extension": ".ico",
-          "platform": "PC",
-          "description": "Small graphic files used for menu icons and save-game indicators."
+          "description": "PS2 UI graphics (menus, buttons)."
         }
       ]
     },
@@ -129,8 +124,8 @@
       "extensions": [
         {
           "extension": ".PAK",
-          "platform": "All",
-          "description": "A package file that bundles multiple game assets into a single storage file."
+          "platform": "ALL",
+          "description": "Package file bundling multiple game assets."
         }
       ]
     }
