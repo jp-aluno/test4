@@ -89,7 +89,7 @@
                 const [r1, r2, r3] = await Promise.all([
                     fetch(`${DEFAULT_PAGE}/manifest.json`),
                     fetch(`${DEFAULT_PAGE}/index.json`),
-                    fetch(`${BASE_URL}/FILES/${CURRENT_PLATFORM}/FILES/extensions/${CURRENT_PLATFORM}`)
+                    fetch(`${BASE_URL}/FILES/extensions/${CURRENT_PLATFORM}`)
                     //fetch("https://jp-aluno.github.io/test3/FILES/extensions/index.json") // Updated extension path
                 ]);
                 
