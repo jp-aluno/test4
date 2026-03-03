@@ -1,0 +1,12 @@
+{
+  "platforms": ["ALL", "WEB", "PC", "PS2"],
+  "categories": [
+    "Sounds",
+    "Models",
+    "Navigation",
+    "Maps",
+    "Interface",
+    "Image",
+    "Archive"
+  ]
+}
