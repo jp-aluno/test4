@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>λ Engine: V10.2 (VFS & Depth Routing)</title>
-    <link href='icon.ico' rel='icon' type='image/x-icon'/>
-    <link href='icon.png' rel='icon' sizes='32x32'/>	
+    <link href='/ORIGINAL/PC/cstrike/icon.ico' rel='icon' type='image/x-icon'/>
+    <link href='/EDITED/PC/cstrike/icon.png' rel='icon' sizes='32x32'/>	
     <meta content='width=device-width, initial-scale=1.0, interactive-widget=resizes-content' name='viewport'/>
     <style>
         :root { --hl: #f2ad0d; --bg: #0d0d0d; --panel: #161616; --code: #00ff00; }
@@ -79,14 +79,16 @@
             CURRENT_PRODUCT = params.get('product') || 'SLUS_200.66';
 
             // Base URL routing
-            BASE_URL = `https://jp-aluno.github.io/test3/DOCS/${CURRENT_PLATFORM.toUpperCase()}/${CURRENT_PRODUCT}/`;
+            const DEFAULT_PAGE = (window.location.protocol + '//' + window.location.hostname + window.location.pathname);
+            const BASE_URL = `${DEFAULT_PAGE}/${CURRENT_PLATFORM.toUpperCase()}/${CURRENT_PRODUCT}/`;
             
             try {
                 log(`Mounting VFS: ${CURRENT_PLATFORM}/${CURRENT_PRODUCT}`);
                 const [r1, r2, r3] = await Promise.all([
+                    fetch(BASE_URL + "manifest.json"),
                     fetch(BASE_URL + "index.json"),
-                    fetch(BASE_URL + "advanced.json"),
-                    fetch("https://jp-aluno.github.io/test3/FILES/extensions/index.json") // Updated extension path
+                    fetch(`${BASE_URL}/extensions/${CURRENT_PLATFORM}`)
+                    // fetch(`https://jp-aluno.github.io/test4/FILES/extensions/index.json')
                 ]);
                 
                 DB_BASIC = r1.ok ? await r1.json() : null;
@@ -270,4 +272,5 @@
         boot();
     </script>
 </body>
+
 </html>
