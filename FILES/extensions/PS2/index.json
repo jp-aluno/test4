@@ -1,0 +1,33 @@
+{
+  "platform": "PS2",
+  "categories": [
+    {
+      "category": "Sounds",
+      "extensions": [".wav", ".vag"]
+    },
+    {
+      "category": "Models",
+      "extensions": [".dol"]
+    },
+    {
+      "category": "Maps",
+      "extensions": [".bs2"]
+    },
+    {
+      "category": "Navigation",
+      "extensions": [".nod"]
+    },
+    {
+      "category": "Interface",
+      "extensions": [".psi"]
+    },
+    {
+      "category": "Image",
+      "extensions": [".png"]
+    },
+    {
+      "category": "Archive",
+      "extensions": [".PAK"]
+    }
+  ]
+}
