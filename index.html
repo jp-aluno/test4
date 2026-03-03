@@ -79,14 +79,16 @@
             CURRENT_PRODUCT = params.get('product') || 'SLUS_200.66';
 
             // Base URL routing
-            BASE_URL = `https://jp-aluno.github.io/test3/DOCS/${CURRENT_PLATFORM.toUpperCase()}/${CURRENT_PRODUCT}/`;
+            const BASE_URL = (window.location.protocol + '//' + window.location.hostname + window.location.pathname);
+            const DEFAULT_PAGE = `${BASE_URL}/DOCS/${CURRENT_PLATFORM.toUpperCase()}/${CURRENT_PRODUCT}/`;
             
             try {
                 log(`Mounting VFS: ${CURRENT_PLATFORM}/${CURRENT_PRODUCT}`);
                 const [r1, r2, r3] = await Promise.all([
+                    fetch(BASE_URL + "manifest.json"),
                     fetch(BASE_URL + "index.json"),
-                    fetch(BASE_URL + "advanced.json"),
-                    fetch("https://jp-aluno.github.io/test3/FILES/extensions/index.json") // Updated extension path
+                    fetch(BASE_URL + `FILES/${CURRENT_PLATFORM}`)
+                    //fetch("https://jp-aluno.github.io/test3/FILES/extensions/index.json") // Updated extension path
                 ]);
                 
                 DB_BASIC = r1.ok ? await r1.json() : null;
