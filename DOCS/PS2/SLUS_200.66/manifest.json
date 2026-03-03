@@ -1,0 +1,105 @@
+{
+  "manifestVersion": 1,
+  "root": "root",
+  "items": [
+    {
+      "path": "root/SLUS_200.66",
+      "segments": ["root", "SLUS_200.66"],
+      "depth": 2,
+      "name": "SLUS_200.66",
+      "type": "executable",
+      "description": "Game executable (ELF) for North America",
+      "extension": ".elf",
+      "size": 2781176,
+      "hashes": {
+        "SHA256": "8A18135613018FD5F83017C38CF91BDFFBC994FA1B85800CD559E9B8C4C2CBBA",
+        "SHA1": "1A457F522B6BBF35F44B19B974B37538916EAF95",
+        "MD5": "F8698BCBFFF90BA8520FF8E49CF5A349"
+      }
+    },
+    {
+      "path": "root/SYSTEM.CNF",
+      "segments": ["root", "SYSTEM.CNF"],
+      "depth": 2,
+      "name": "SYSTEM.CNF",
+      "type": "file",
+      "description": "PS2 boot configuration file",
+      "extension": ".CNF",
+      "size": 61,
+      "hashes": {
+        "SHA256": "56067414457D766F7EC97831269B64BC9ABB680748F687C6F8AE5D7B92AEB73B",
+        "SHA1": "3C6FD1AD3332CECB59941601D3F582DAAA38FDB5"
+      }
+    },
+    {
+      "path": "root/DECAY/DECAY.PAK",
+      "segments": ["root", "DECAY", "DECAY.PAK"],
+      "depth": 3,
+      "name": "DECAY.PAK",
+      "type": "file",
+      "extension": ".PAK",
+      "size": 46811,
+      "hashes": {
+        "SHA1": "953E4FC8615B02036AC159C56E7B4B37F0412E16",
+        "MD5": "EA4104C18A20D340BA834902AED66C32"
+      }
+    },
+    {
+      "path": "root/DECAY/PAK0.PAK",
+      "segments": ["root", "DECAY", "PAK0.PAK"],
+      "depth": 3,
+      "name": "PAK0.PAK",
+      "type": "file",
+      "size": 54517952,
+      "hashes": {
+        "SHA256": "F28D135DD18BE59E4BD8E7BAA2000A4E8283E835E9E1DC59B3D72D6E47D89BE9"
+      }
+    },
+    {
+      "path": "root/GUIDATA/FRONTEND.PAK",
+      "segments": ["root", "GUIDATA", "FRONTEND.PAK"],
+      "depth": 3,
+      "name": "FRONTEND.PAK",
+      "type": "file",
+      "extension": ".PAK",
+      "size": 1508658,
+      "hashes": {
+        "MD5": "0FB5D24FB3AAD9FC8A45702ABEE366D9"
+      }
+    },
+    {
+      "path": "root/PAKS/DICTS.PAK",
+      "segments": ["root", "PAKS", "DICTS.PAK"],
+      "depth": 3,
+      "name": "DICTS.PAK",
+      "type": "file",
+      "size": 7977280,
+      "hashes": {
+        "SHA1": "BDE79758AEA7478B57F45FED7F732D0DB166CF0B"
+      }
+    },
+    {
+      "path": "root/VALVE/CONFIG.CFG",
+      "segments": ["root", "VALVE", "CONFIG.CFG"],
+      "depth": 3,
+      "name": "CONFIG.CFG",
+      "type": "file",
+      "extension": ".CFG",
+      "size": 4235,
+      "hashes": {
+        "MD5": "6FDB2B0C2346B3C9E2FACC0B2C933BDE"
+      }
+    },
+    {
+      "path": "root/VALVE/PAK0.PAK",
+      "segments": ["root", "VALVE", "PAK0.PAK"],
+      "depth": 3,
+      "name": "PAK0.PAK",
+      "type": "file",
+      "size": 54517952,
+      "hashes": {
+        "SHA1": "4F56BA9733AF4256F9367A60C2C0B2A8BF957135"
+      }
+    }
+  ]
+}
