@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>λ Engine: V10.2 (VFS & Depth Routing)</title>
+    <link href='icon.ico' rel='icon' type='image/x-icon'/>
+    <link href='icon.png' rel='icon' sizes='32x32'/>	
+    <meta content='width=device-width, initial-scale=1.0, interactive-widget=resizes-content' name='viewport'/>
+    <style>
+        :root { --hl: #f2ad0d; --bg: #0d0d0d; --panel: #161616; --code: #00ff00; }
+        body { background: var(--bg); color: #e0e0e0; font-family: 'Segoe UI', monospace; margin: 0; padding: 20px; }
+        
+        /* Path Bar & Breadcrumbs */
+        .path-bar { background: var(--panel); padding: 12px; border: 1px solid #333; margin-bottom: 20px; border-left: 5px solid var(--hl); font-size: 0.9em; }
+        .crumb { color: var(--hl); text-decoration: none; font-weight: bold; position: relative; }
+        .crumb:hover { text-decoration: underline; }
+        
+        /* CSS Auto-Depth Numbering (The ¹²³ Magic) */
+        .crumb[data-depth]::after {
+            content: attr(data-depth);
+            font-size: 0.65em;
+            vertical-align: super;
+            opacity: 0.7;
+            margin-left: 1px;
+        }
+
+        /* Grid & Cards */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+        .card { background: var(--panel); padding: 12px; border: 1px solid #222; display: flex; align-items: center; text-decoration: none; color: inherit; transition: 0.2s; }
+        .card:hover { border-color: var(--hl); background: #1a1a1a; transform: translateY(-2px); }
+        .icon { font-size: 1.4em; margin-right: 12px; }
+        
+        /* Terminal & File View */
+        pre { background: #000; padding: 15px; overflow-x: auto; color: var(--code); border: 1px solid #222; font-size: 0.85em; line-height: 1.4; }
+        .terminal { background: #000; padding: 10px; font-size: 0.8em; color: #888; margin-bottom: 15px; border-left: 4px solid #444; max-height: 100px; overflow-y: auto; }
+        .file-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #333; }
+        .sub { font-size: 0.8em; color: #777; margin-top: 4px; text-transform: uppercase; }
+        .btn { background: #222; color: #ccc; border: 1px solid #444; padding: 6px 12px; cursor: pointer; font-size: 0.8em; margin-left: 5px; }
+        .btn:hover { background: #333; border-color: var(--hl); color: #fff; }
+        .badge { background: #333; color: var(--hl); padding: 2px 6px; border-radius: 3px; font-size: 0.75em; margin-right: 8px; border: 1px solid #444; }
+    </style>
+</head>
+<body>
+
+    <div class="terminal" id="term-log">λ-Core v10.2 Booting...</div>
+    <div id="pathDisplay" class="path-bar"><a href="#" class="crumb" data-depth="1">Root</a></div>
+    <div id="viewPort" class="grid"></div>
+
+    <script>
+        let BASE_URL = ""; 
+        let DB_BASIC = null;
+        let DB_ADV = null;
+        let DB_FILES = null; 
+        let CURRENT_PRODUCT = "";
+        let CURRENT_PLATFORM = "PS2";
+
+        function log(msg) {
+            const l = document.getElementById('term-log');
+            l.innerHTML += `<div>> ${msg}</div>`;
+            l.scrollTop = l.scrollHeight;
+        }
+
+        // Smart Property Access
+        const getName = (n) => n?.Name || n?.name || "";
+        const getKids = (n) => n?.Children || n?.children || null;
+        const getType = (n) => n?.Type || n?.type || "";
+        
+        // Resolves the true root node of the basic.json file
+        const getEntryRoot = (db) => {
+            if (!db) return null;
+            return db.Basic || db.basic || db; 
+        };
+
+        async function boot() {
+            const hash = window.location.hash.substring(1);
+            const params = new URLSearchParams(hash.includes('?') ? hash.split('?')[1] : hash);
+            
+            CURRENT_PLATFORM = params.get('platform') || 'PS2';
+            CURRENT_PRODUCT = params.get('product') || 'SLUS_200.66';
+
+            // Base URL routing
+            BASE_URL = `https://jp-aluno.github.io/test3/DOCS/${CURRENT_PLATFORM.toUpperCase()}/${CURRENT_PRODUCT}/`;
+            
+            try {
+                log(`Mounting VFS: ${CURRENT_PLATFORM}/${CURRENT_PRODUCT}`);
+                const [r1, r2, r3] = await Promise.all([
+                    fetch(BASE_URL + "index.json"),
+                    fetch(BASE_URL + "advanced.json"),
+                    fetch("https://jp-aluno.github.io/test3/FILES/extensions/index.json") // Updated extension path
+                ]);
+                
+                DB_BASIC = r1.ok ? await r1.json() : null;
+                DB_ADV = r2.ok ? await r2.json() : null;
+                DB_FILES = r3.ok ? await r3.json() : null;
+
+                if (!DB_BASIC) throw new Error("OS layer (index.json) missing at mount point.");
+
+                log("Metadata Synced. VFS Bridging Active.");
+
+                window.onhashchange = () => {
+                    // Reload if platform params change, otherwise just route
+                    if (window.location.hash.includes('platform=') && !window.location.hash.includes(CURRENT_PLATFORM)) {
+                        location.reload();
+                    } else {
+                        router();
+                    }
+                };
+
+                router();
+            } catch(e) { 
+                log("Boot Error: " + e.message); 
+                document.getElementById('viewPort').innerHTML = `<div style="color:red;padding:20px;">CRITICAL_ERROR: ${e.message}</div>`;
+            }
+        }
+
+        function getFileMetadata(fileName) {
+            if (!DB_FILES || !fileName.includes('.')) return { icon: "📄", desc: "Binary Data", cat: "System" };
+            const ext = "." + fileName.split('.').pop().toLowerCase();
+            let fallback = null;
+
+            for (const cat of DB_FILES.categories) {
+                for (const entry of cat.extensions) {
+                    if (entry.extension.toLowerCase() === ext) {
+                        if (entry.platform.toUpperCase() === CURRENT_PLATFORM.toUpperCase()) 
+                            return { icon: cat.icon, desc: entry.description, cat: cat.category };
+                        if (entry.platform.toUpperCase() === "ALL") 
+                            fallback = { icon: cat.icon, desc: entry.description, cat: cat.category };
+                    }
+                }
+            }
+            return fallback || { icon: "📄", desc: "Asset Leaf Node", cat: "Unclassified" };
+        }
+
+        function findInTree(tree, name) {
+            if (!tree) return null;
+            const kids = Array.isArray(tree) ? tree : getKids(tree);
+            if (!kids) return null;
+
+            let found = kids.find(k => getName(k).toLowerCase() === name.toLowerCase());
+            if (found) return found;
+
+            for (const k of kids) {
+                const sub = findInTree(k, name);
+                if (sub) return sub;
+            }
+            return null;
+        }
+
+        // VFS Router: Bridges basic.json to advanced.json and calculates depth
+        async function resolveTarget(hash) {
+            const root = getEntryRoot(DB_BASIC);
+            if (!root) return null;
+
+            const cleanHash = decodeURIComponent(hash.split('?')[0]);
+            if (cleanHash === "" || cleanHash === "/" || cleanHash === "#") {
+                return { node: root, path: "", segments: [], depth: 1 };
+            }
+
+            const segments = cleanHash.split('/').filter(x => x);
+            let current = root;
+            let trace = "";
+            let currentDepth = 1; // 1 = Root
+
+            for (const seg of segments) {
+                let list = getKids(current);
+                let found = list ? list.find(item => getName(item).toLowerCase() === seg.toLowerCase()) : null;
+
+                // VFS Intercept: Transition from basic OS layer to advanced Archive layer
+                if (seg.toLowerCase().endsWith('.pak') || seg.toLowerCase().endsWith('.mdl')) {
+                    const advNode = findInTree(DB_ADV, seg);
+                    if (advNode) {
+                        log(`VFS Mount: Bridging ${seg} to advanced.json mapping.`);
+                        found = advNode; // Overwrite OS file node with Archive folder node
+                    }
+                }
+
+                if (!found) return null;
+                current = found;
+                trace += (trace ? "/" : "") + getName(current);
+                currentDepth++; // Increment depth layer
+            }
+            
+            return { node: current, path: trace, segments: segments, depth: currentDepth };
+        }
+
+        function renderFileView(file) {
+            const view = document.getElementById('viewPort');
+            view.className = ""; 
+            const fileName = getName(file);
+            const meta = getFileMetadata(fileName);
+            const content = file.Content || file.content || JSON.stringify(file, null, 2);
+            
+            view.innerHTML = `
+                <div class="file-viewer">
+                    <div class="file-header">
+                        <div>
+                            <h2 style="margin:0; color:var(--hl)">${meta.icon} ${fileName}</h2>
+                            <div class="sub"><span class="badge">${meta.cat}</span> ${meta.desc}</div>
+                        </div>
+                        <div class="file-actions">
+                            <button class="btn" onclick="googleIt()">Search</button>
+                            <button class="btn active" onclick="downloadFile('${fileName}', \`${content.replace(/`/g, '\\`')}\`)">Extract</button>
+                        </div>
+                    </div>
+                    <pre id="fileContent">${content}</pre>
+                </div>`;
+        }
+
+        window.googleIt = () => {
+            const fileName = getName(document.querySelector('.file-viewer h2')); 
+            window.open(`https://www.google.com/search?q=${CURRENT_PRODUCT}+${fileName}`, "_blank");
+        };
+
+        window.downloadFile = (name, data) => {
+            const blob = new Blob([data], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url; a.download = name; a.click();
+        };
+
+        async function router() {
+            const hash = location.hash.startsWith('#') ? location.hash.substring(1) : location.hash;
+            const result = await resolveTarget(hash);
+            const view = document.getElementById('viewPort');
+
+            if (!result) {
+                view.innerHTML = `<div style="color:red;padding:20px;">ERR_PATH_NOT_FOUND: [${hash}]</div>`;
+                return;
+            }
+
+            const { node, path, segments } = result;
+            const currentParams = window.location.hash.includes('?') ? "?" + window.location.hash.split('?')[1] : "";
+            
+            // Dynamic CSS-Driven Breadcrumbs with data-depth
+            let breadcrumbs = `<a href="#/${currentParams}" class="crumb" data-depth="1">Root</a>`;
+            let currentBuild = "";
+            
+            segments.forEach((seg, index) => {
+                currentBuild += "/" + seg;
+                // index 0 is depth 2, index 1 is depth 3, etc.
+                const crumbDepth = index + 2; 
+                breadcrumbs += ` / <a href="#${currentBuild}${currentParams}" class="crumb" data-depth="${crumbDepth}">${seg}</a>`;
+            });
+            
+            document.getElementById('pathDisplay').innerHTML = breadcrumbs;
+
+            // Render children (grid) or file data
+            const kids = getKids(node);
+            if (kids && kids.length > 0) {
+                view.className = "grid"; view.innerHTML = "";
+                kids.forEach(k => {
+                    const name = getName(k);
+                    const meta = getFileMetadata(name);
+                    
+                    // Folder check considers advanced.json interception
+                    const isPak = name.toLowerCase().endsWith('.pak');
+                    const isDir = getType(k).toLowerCase() === "directory" || getKids(k) || isPak;
+                    const icon = isDir ? "📁" : meta.icon;
+                    
+                    const card = document.createElement('a');
+                    card.className = "card";
+                    card.href = `#${path ? path+'/' : ''}${name}${currentParams}`;
+                    card.innerHTML = `<span class="icon">${icon}</span><b>${name}</b>`;
+                    view.appendChild(card);
+                });
+            } else {
+                renderFileView(node);
+            }
+        }
+        
+        boot();
+    </script>
+</body>
+</html>
