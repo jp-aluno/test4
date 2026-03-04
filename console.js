@@ -1,192 +1,77 @@
-// console.js
 !function() {
+    // 1. Use 'var' for old phone support
+    var isResizing = false;
+    var lastY = 0;
 
-    // Initialize variables
-    let isResizing = false;
-    let lastY = 0;
-
-    // Get URL parameters and extract "console" parameter value
-    const getParams = (() => {
-        const params = new Map(
-            location.search
-            .slice(1)
-            .split('&')
-            .filter(p => p) // remove empty strings
-            .map(p => {
-                const [k, v] = p.split('=');
-                // Only return the decoded value if it's provided; otherwise, set to false.
-                return [k, v !== undefined ? decodeURIComponent(v) : false];
-            })
-        );
-        return key => params.get(key) ?? false;
+    var getParams = (function() {
+        var params = {};
+        var search = location.search.slice(1);
+        if (!search) return function() { return false; };
+        
+        var parts = search.split('&');
+        for (var i = 0; i < parts.length; i++) {
+            var pair = parts[i].split('=');
+            params[pair[0]] = pair[1] !== undefined ? decodeURIComponent(pair[1]) : false;
+        }
+        return function(key) { return params[key] || false; };
     })();
 
-    const isConsole = getParams("console") === "true";
-    const isLink = getParams("link") === "true";
+    var isConsole = getParams("console") === "true";
 
-    // Define both emoji and border color in a single matrix
-    const consoleStyles = {
-        log: {
-            emoji: '🟢',
-            border: '#4CAF50'
-        },
-        warn: {
-            emoji: '🟡',
-            border: '#FFEB3B'
-        },
-        error: {
-            emoji: '🔴',
-            border: '#F44336'
-        },
-        info: {
-            emoji: '🔵',
-            border: '#2196F3'
-        },
-        debug: {
-            emoji: '⚪',
-            border: '#FFFFFF'
-        }
+    var consoleStyles = {
+        log: { emoji: '🟢', border: '#4CAF50' },
+        warn: { emoji: '🟡', border: '#FFEB3B' },
+        error: { emoji: '🔴', border: '#F44336' },
+        info: { emoji: '🔵', border: '#2196F3' },
+        debug: { emoji: '⚪', border: '#FFFFFF' }
     };
 
-    // Define CSS
-    const styles = {
-        body: {
-            margin: "0",
-            padding: "0",
-            overflowX: "hidden",
-            height: "100vh"
-        },
-        frameContainer: {
-            marginTop: "15px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            width: "100%",
-            position: "fixed",
-            bottom: "0",
-            zIndex: "9999"
-        },
-        resizeHandle: {
-            backgroundColor: "#444",
-            height: "15px",
-            cursor: "grab",
-            width: "100%"
-        },
-        consoleOutput: {
-            display: "flex",
-            flexDirection: "column",
-            fontFamily: "Arial, sans-serif",
-            width: "100%",
-            backgroundColor: "#282828",
-            color: "white",
-            padding: "10px",
-            boxSizing: "border-box",
-            overflowY: "scroll",
-            height: "50%"
-        },
-        consoleEntry: {
-            display: "flex",
-            flexDirection: "column",
-            background: "rgba(255, 255, 255, 0.1)",
-            padding: "10px",
-            margin: "5px 0",
-            borderRadius: "5px",
-            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.3)"
-        }
+    var styles = {
+        body: { margin: "0", padding: "0", overflowX: "hidden", height: "100vh" },
+        frameContainer: { marginTop: "15px", display: "flex", flexDirection: "column", alignItems: "center", width: "100%", position: "fixed", bottom: "0", zIndex: "9999" },
+        resizeHandle: { backgroundColor: "#444", height: "15px", cursor: "grab", width: "100%" },
+        consoleOutput: { display: "flex", flexDirection: "column", fontFamily: "Arial, sans-serif", width: "100%", backgroundColor: "#282828", color: "white", padding: "10px", boxSizing: "border-box", overflowY: "scroll", height: "50%" },
+        consoleEntry: { display: "flex", flexDirection: "column", background: "rgba(255, 255, 255, 0.1)", padding: "10px", margin: "5px 0", borderRadius: "5px", boxShadow: "0 2px 4px rgba(0, 0, 0, 0.3)" }
     };
 
-    // Only override console functions if isConsole is true
     if (isConsole) {
-        try {
-            // Preserve original console methods
-            const originalConsoleLog = console.log;
-            const originalConsoleWarn = console.warn;
-            const originalConsoleError = console.error;
-            const originalConsoleDebug = console.debug;
-
-            // Queue to store messages before the DOM is ready
-            let logQueue = [];
-            let domReady = false;
-
-            // Ensure the DOM is ready before calling addToConsole
-            function safeAddToConsole(msg, type) {
-                if (domReady) {
-                    addToConsole(msg, type);
-                } else {
-                    logQueue.push({
-                        msg,
-                        type
-                    });
-                }
-            };
-
-            // Store the logs in a Queue and wait until body is ready
-            function processQueue() {
-                domReady = true;
-                logQueue.forEach(({
-                    msg,
-                    type
-                }) => addToConsole(msg, type));
-                logQueue = []; // Clear the queue
-            };
-
-            // Override console.log
-            console.log = function(...args) {
-                originalConsoleLog.apply(console, args);
-                safeAddToConsole(args.join(' '), 'log');
-            };
-
-            // Override console.warn
-            console.warn = function(...args) {
-                originalConsoleWarn.apply(console, args);
-                safeAddToConsole(args.join(' '), 'warn');
-            };
-
-            // Override console.error
-            console.error = function(...args) {
-                originalConsoleError.apply(console, args);
-                const error = args[0];
-                if (error instanceof Error) {
-                    safeAddToConsole(error, 'error'); // Pass the actual Error object
-                } else {
-                    safeAddToConsole(String(error), 'error'); // Handle non-Error messages
-                }
-            };
-
-            // Override console.info (using debug as base)
-            console.info = function(...args) {
-                originalConsoleDebug.apply(console, args);
-                safeAddToConsole(args.join(' '), 'info');
-            };
-
-            // Override console.debug
-            console.debug = function(...args) {
-                originalConsoleDebug.apply(console, args);
-                safeAddToConsole(args.join(' '), 'debug');
-            };
-        } catch (e) {
-            console.error("Error setting up debug console:", e);
-            alert("Error: " + e.message);
-    }
+        // GLOBAL ERROR CATCHER (Great for old phones)
+        window.onerror = function(msg, url, line) {
+            console.error(msg + " at " + line);
+            return false;
         };
-        /*
-        //Apply the CSS to the body
-        function applyStyles(element, styleObject) {
-            const proxy = new Proxy(styleObject, {
-                set(target, prop, value) {
-                    if (prop in element.style) {
-                        element.style[prop] = vawindow.onerror =lue;
-                    } else {
-                        console.warn(`Invalid CSS property: ${prop}`);
-                    }
-                    return true;
-                }
-            });
 
-            Object.assign(proxy, styleObject);
+        var originalConsole = {
+            log: console.log,
+            warn: console.warn,
+            error: console.error,
+            debug: console.debug
         };
-        */
-        
+
+        var logQueue = [];
+        var domReady = false;
+
+        function safeAddToConsole(msg, type) {
+            if (domReady) {
+                addToConsole(msg, type);
+            } else {
+                logQueue.push({ msg: msg, type: type });
+            }
+        }
+
+        // Re-writing overrides to avoid spread operators (...)
+        console.log = function() {
+            var args = Array.prototype.slice.call(arguments);
+            if (originalConsole.log) originalConsole.log.apply(console, args);
+            safeAddToConsole(args.join(' '), 'log');
+        };
+
+        console.error = function() {
+            var args = Array.prototype.slice.call(arguments);
+            if (originalConsole.error) originalConsole.error.apply(console, args);
+            safeAddToConsole(args.join(' '), 'error');
+        };
+
         function applyStyles(element, styleObject) {
             for (var prop in styleObject) {
                 if (styleObject.hasOwnProperty(prop)) {
@@ -194,341 +79,50 @@
                 }
             }
         }
-        
+
+        function addToConsole(message, type) {
+            var output = document.getElementById('consoleOutput');
+            if (!output) return;
+
+            var entry = document.createElement('div');
+            applyStyles(entry, styles.consoleEntry);
+            
+            var style = consoleStyles[type] || { emoji: '', border: '#000' };
+            entry.style.borderLeft = "5px solid " + style.border;
+            entry.innerHTML = "<span>" + style.emoji + " " + message + "</span>";
+            
+            output.appendChild(entry);
+            output.scrollTop = output.scrollHeight;
+        }
+
         function modifyBody() {
-            // Apply CSS to body
             applyStyles(document.body, styles.body);
 
-            // Create the console output and resize handle dynamically
-            const frameContainer = document.createElement('div');
-            frameContainer.id = 'frameContainer';
-            applyStyles(frameContainer, styles.frameContainer);
+            var frame = document.createElement('div');
+            frame.id = 'frameContainer';
+            applyStyles(frame, styles.frameContainer);
 
-            const resizeHandle = document.createElement('div');
-            resizeHandle.id = 'resizeHandle';
-            applyStyles(resizeHandle, styles.resizeHandle);
+            var handle = document.createElement('div');
+            handle.id = 'resizeHandle';
+            applyStyles(handle, styles.resizeHandle);
 
-            const outputContainer = document.createElement('div');
-            outputContainer.id = 'consoleOutput';
-            applyStyles(outputContainer, styles.consoleOutput);
+            var output = document.createElement('div');
+            output.id = 'consoleOutput';
+            applyStyles(output, styles.consoleOutput);
 
-            frameContainer.appendChild(resizeHandle);
-            frameContainer.appendChild(outputContainer);
-            document.body.appendChild(frameContainer);
+            frame.appendChild(handle);
+            frame.appendChild(output);
+            document.body.appendChild(frame);
 
-            // Set initial height of console output **after** it's created
-            outputContainer.style.height = `${window.screen.height / 3}px`;
-
-            // Mouse events
-            resizeHandle.addEventListener('mousedown', startResizing);
-            document.addEventListener('mousemove', handleResize, {
-                passive: true
-            });
-            document.addEventListener('mouseup', stopResizing);
-
-            resizeHandle.addEventListener('touchstart', startResizing, {
-                passive: true
-            });
-
-            // Touch events			
-            document.addEventListener('touchmove', (e) => {
-                // Only prevent default if user is resizing
-                if (isResizing) {
-                    e.preventDefault();
-                    handleResize(e);
-                }
-            }, { passive: true });
-            
-            document.addEventListener('touchend', stopResizing, {
-                passive: true
-            });
-
-            // Common resize logic
-            function handleResize(e) {
-                if (!isResizing) return;
-
-                const clientY = e.clientY || e.touches[0].clientY; // Use touch for mobile, mouse for desktop
-                const deltaY = clientY - lastY; // Track movement
-                const newHeight = outputContainer.clientHeight - deltaY; // Adjust height directly
-                const bodyHeight = window.screen.height;
-
-                // Prevent resize from going out of bounds
-                if (newHeight > 50 && newHeight < bodyHeight - 100) {
-                    outputContainer.style.height = `${newHeight}px`;
-                }
-                lastY = clientY;
-
-                // Update the position of the handle
-                const newCursorPosY = clientY;
-                resizeHandle.style.top = `${newCursorPosY}px`;
-            };
-        };
-
-        // Set the emoji and border color from the matrix
-        function addToConsole(message, type) {
-            const entry = document.createElement('div');
-            entry.classList.add('consoleEntry', type);
-            applyStyles(entry, styles.consoleEntry);
-
-            const {
-                emoji,
-                border
-            } = consoleStyles[type] || {
-                emoji: '',
-                border: '#000'
-            };
-            entry.style.borderLeft = `5px solid ${border}`;
-
-            const emojiElement = document.createElement('span');
-            emojiElement.classList.add('emoji');
-            emojiElement.textContent = emoji;
-
-            if (type === 'error' && message instanceof Error) {
-                const errorNameDiv = document.createElement('div');
-                errorNameDiv.style.fontWeight = 'bold';
-                errorNameDiv.appendChild(emojiElement);
-                errorNameDiv.appendChild(document.createTextNode(` ${message.name}: ${message.message}`));
-
-                const errorStackDiv = document.createElement('div');
-                errorStackDiv.style.paddingLeft = '20px';
-                errorStackDiv.style.whiteSpace = 'pre-line';
-                errorStackDiv.style.fontSize = '0.9em';
-                errorStackDiv.style.color = '#ccc';
-
-                const stackEntries = parseStack(message);
-                const container = document.createElement('div');
-                container.className = 'stack-container';
-                document.body.appendChild(container);
-
-                const table = document.createElement('table');
-                table.className = 'stack-table';
-
-                // Apply CSS via JavaScript (border none)
-                table.style.borderCollapse = 'collapse';
-                table.style.width = '100%';
-                table.style.fontFamily = 'sans-serif';
-                //table.style.display = 'none'
-
-                // Create header row
-                const headerRow = document.createElement('tr');
-                ['Function', 'File', 'Line', 'Column'].forEach(text => {
-                    const th = document.createElement('th');
-                    th.textContent = text;
-                    th.style.fontWeight = 'bold';
-                    th.style.backgroundColor = '#f4f4f4';
-                    th.style.padding = '8px 12px';
-                    th.style.display = 'none';
-                    headerRow.appendChild(th);
-                });
-                table.appendChild(headerRow);
-
-                // Create rows for each parsed stack entry
-                stackEntries.forEach(entry => {
-                    const row = document.createElement('tr');
-
-                    const fnCell = document.createElement('td');
-                    fnCell.textContent = entry.functionName;
-
-                    const fileCell = document.createElement('td');
-                    const link = document.createElement('a');
-                    link.href = entry.fullFile;
-                    link.textContent = entry.fileName;
-                    link.style.textDecoration = 'none';
-                    link.style.color = 'royalblue';
-                    link.style.cursor = 'pointer';
-                    link.onclick = (e) => {
-                        e.preventDefault();
-                        fetchFileContent(entry.fullFile, entry.lineNumber);
-                    };
-                    
-                    fileCell.appendChild(link);
-
-                    const lineCell = document.createElement('td');
-                    lineCell.textContent = entry.lineNumber;
-
-                    const colCell = document.createElement('td');
-                    colCell.textContent = entry.columnNumber;
-
-                    [fnCell, fileCell, lineCell, colCell].forEach(cell => {
-                        cell.style.padding = '8px 12px';
-                        cell.style.border = 'none';
-                        row.appendChild(cell);
-                    });
-
-                    table.appendChild(row);
-                });
-
-                container.appendChild(table);
-                errorStackDiv.appendChild(container);
-                entry.appendChild(errorNameDiv);
-                entry.appendChild(errorStackDiv);
-
-            } else {
-                const messageDiv = document.createElement('div');
-                messageDiv.classList.add('console-message');
-                messageDiv.appendChild(emojiElement);
-                messageDiv.appendChild(document.createTextNode(` ${message}`));
-                entry.appendChild(messageDiv);
+            domReady = true;
+            for (var i = 0; i < logQueue.length; i++) {
+                addToConsole(logQueue[i].msg, logQueue[i].type);
             }
+            logQueue = [];
+        }
 
-            document.getElementById('consoleOutput').appendChild(entry);
-        };
-
-        // Function to fetch the file from the stack
-        function fetchFileContent(fileUrl, errorLine) {
-            fetch(fileUrl)
-                .then(response => {
-                    let contentType = response.headers.get("Content-Type");
-
-                    if (!response.ok) {
-                        throw new Error(`Failed to fetch: ${response.statusText}`);
-                    }
-
-                    // Detect file type based on Content-Type
-                    if (contentType.includes("application/json")) {
-                        return response.json(); // Parse as JSON
-                    } else if (
-                        contentType.includes("text/html") ||
-                        contentType.includes("text/css") ||
-                        contentType.includes("text/javascript") ||
-                        contentType.includes("application/javascript")
-                    ) {
-                        return response.text(); // Parse as text (HTML, CSS, JS)
-                    } else if (contentType.includes("image")) {
-                        return response.blob(); // Handle images
-                    } else {
-                        return response.arrayBuffer(); // Fallback for unknown formats
-                    }
-                })
-                .then(data => {
-                    let processedContent;
-
-                    // Process content based on type
-                    if (typeof data === "object" && !(data instanceof Blob)) {
-                        processedContent = JSON.stringify(data, null, 2); // Pretty-print JSON
-                    } else if (data instanceof Blob) {
-                        processedContent = URL.createObjectURL(data); // Convert Blob (images)
-                    } else {
-                        processedContent = data; // Text-based content
-                    }
-
-                    fullScreen(processedContent, errorLine);
-                })
-                .catch(err => console.error("Error fetching file:", err));
-        };
-
-        // Parse an error stack string (works for Chrome and Firefox)
-        function parseStack(error) {
-            const stack = error.stack || "";
-            const lines = stack.split('\n');
-            const stackArr = [];
-
-            const chromeRegex = /^\s*at\s+(?:(.*?)\s+\()?\/?(.+?):(\d+):(\d+)\)?$/;
-            const firefoxRegex = /^(?:(.*?)\*?@)?\/?(.+?):(\d+):(\d+)$/;
-
-            const startIdx = lines[0]?.startsWith('Error:') ? 1 : 0;
-
-            for (let i = startIdx; i < lines.length; i++) {
-                let line = lines[i].trim();
-                if (!line) continue;
-
-                let match = line.match(chromeRegex) || line.match(firefoxRegex);
-                if (match) {
-                    let funcName = match[1]?.trim() || '<anonymous>';
-                    let fileFull = match[2].trim();
-                    let fixedFile = fixFileLink(fileFull);
-                    let fileNameDisplay = fixedFile.split('/').pop();
-                    let lineNumber = parseInt(match[3], 10);
-                    let columnNumber = parseInt(match[4], 10);
-                    let errorFile = error.fileName ? error.fileName.split('?')[0] : fixedFile;
-
-                    stackArr.push({
-                        functionName: funcName,
-                        fileName: fileNameDisplay,
-                        fullFile: errorFile,
-                        lineNumber,
-                        columnNumber
-                    });
-                }
-            }
-            return stackArr;
-        };
-
-        /// Remove leading and trailing "/"
-        function fixFileLink(url) {
-            if (!url) return "";
-            let cleanUrl = url.split('?')[0].replace(/^\/+/, '').replace(/\/$/, '');
-            return /^(https?:\/\/|file:\/\/)/.test(cleanUrl) ? cleanUrl : window.location.origin + '/' + cleanUrl;
-        };
-
-        // Function to escape HTML content for safety
-        function escapeHtml(str) {
-            return str.replace(/[&<>"']/g, (match) => {
-                const escapeChars = {
-                    '&': '&amp;',
-                    '<': '&lt;',
-                    '>': '&gt;',
-                    '"': '&quot;',
-                    "'": '&#39;'
-                };
-                return escapeChars[match];
-            });
-        };
-
-        // Runtime create an object and open it
-        function fullScreen(content, errorLine) {
-            const lines = content.split('\n');
-            let formattedContent = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">';
-            formattedContent += '<title>View Source</title>';
-            formattedContent += '<meta content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content" name="viewport"/>';
-            formattedContent += '<style>';
-            formattedContent += 'body { font-family: -moz-fixed; font-weight: normal; white-space: pre; background-color: #ffffff; color: #000000; padding: 12px; margin: 0; }';
-            formattedContent += '@media (prefers-color-scheme: dark) { body { background-color: #333333; color: #ffffff; } }';
-            formattedContent += 'span:not(.error), a:not(.error) { unicode-bidi: embed; }';
-            formattedContent += 'span[id] { display: block; }';
-            formattedContent += '#viewsource { font-family: -moz-fixed; font-weight: normal; white-space: pre; }';
-            formattedContent += ':root { color-scheme: light dark; direction: ltr; }';
-            formattedContent += '.line-number { color: #888; margin-right: 1ch; }';
-            formattedContent += '.highlight-line { background-color: darkgoldenrod; }';
-            formattedContent += '</style></head><body id="viewsource">';
-
-            lines.forEach((line, i) => {
-                const lineNumber = i + 1;
-                const highlightClass = (lineNumber === errorLine) ? 'highlight-line' : '';
-                const lineText = escapeHtml(line);
-                formattedContent += `<span id="L${lineNumber}"><span class="line-number">${lineNumber}</span><span class="line-content ${highlightClass}">${String(lineText)}</span></span>\n`;
-            });
-
-            formattedContent += '</body></html>';
-            const blob = new Blob([formattedContent], {
-                type: 'text/html'
-            });
-            const blobUrl = URL.createObjectURL(blob);
-            window.open(blobUrl + "#L" + errorLine, '_blank');
-        };
-
-        // Start resizing (common for mouse and touch)
-        function startResizing(e) {
-            isResizing = true;
-            lastY = e.clientY || e.touches[0].clientY; // Capture initial position
-            document.body.style.cursor = 'grabbing'; // Change cursor
-        };
-
-        // Stop resizing (common for mouse and touch)
-        function stopResizing() {
-            isResizing = false;
-            document.body.style.cursor = 'default'; // Reset cursor
-        };
-
-        // Call the functions at page loading
-        window.addEventListener("load", () => {
-            modifyBody();
-            processQueue();
-        });
-
-        // Welcoming first message
-        console.debug("Welcome to console.js!");
+        window.addEventListener("load", modifyBody);
         
-    };
-
+        console.log("Console initialized!");
+    }
 }();
