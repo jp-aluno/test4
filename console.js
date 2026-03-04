@@ -1,24 +1,13 @@
-!function() {
-    // 1. Use 'var' for old phone support
-    var isResizing = false;
-    var lastY = 0;
+(() => {
+    // 1. Use const and let
+    let isResizing = false;
+    let lastY = 0;
 
-    var getParams = (function() {
-        var params = {};
-        var search = location.search.slice(1);
-        if (!search) return function() { return false; };
-        
-        var parts = search.split('&');
-        for (var i = 0; i < parts.length; i++) {
-            var pair = parts[i].split('=');
-            params[pair[0]] = pair[1] !== undefined ? decodeURIComponent(pair[1]) : false;
-        }
-        return function(key) { return params[key] || false; };
-    })();
+    // 2. Modern URLSearchParams (replaces the manual loop)
+    const params = new URLSearchParams(window.location.search);
+    const isConsole = params.get("console") === "true";
 
-    var isConsole = getParams("console") === "true";
-
-    var consoleStyles = {
+    const consoleStyles = {
         log: { emoji: '🟢', border: '#4CAF50' },
         warn: { emoji: '🟡', border: '#FFEB3B' },
         error: { emoji: '🔴', border: '#F44336' },
@@ -26,103 +15,80 @@
         debug: { emoji: '⚪', border: '#FFFFFF' }
     };
 
-    var styles = {
+    const styles = {
         body: { margin: "0", padding: "0", overflowX: "hidden", height: "100vh" },
-        frameContainer: { marginTop: "15px", display: "flex", flexDirection: "column", alignItems: "center", width: "100%", position: "fixed", bottom: "0", zIndex: "9999" },
+        frameContainer: { display: "flex", flexDirection: "column", alignItems: "center", width: "100%", position: "fixed", bottom: "0", zIndex: "9999" },
         resizeHandle: { backgroundColor: "#444", height: "15px", cursor: "grab", width: "100%" },
-        consoleOutput: { display: "flex", flexDirection: "column", fontFamily: "Arial, sans-serif", width: "100%", backgroundColor: "#282828", color: "white", padding: "10px", boxSizing: "border-box", overflowY: "scroll", height: "50%" },
-        consoleEntry: { display: "flex", flexDirection: "column", background: "rgba(255, 255, 255, 0.1)", padding: "10px", margin: "5px 0", borderRadius: "5px", boxShadow: "0 2px 4px rgba(0, 0, 0, 0.3)" }
+        consoleOutput: { display: "flex", flexDirection: "column", fontFamily: "Arial, sans-serif", width: "100%", backgroundColor: "#282828", color: "white", padding: "10px", boxSizing: "border-box", overflowY: "scroll", height: "33vh" },
+        consoleEntry: { display: "flex", flexDirection: "column", background: "rgba(255, 255, 255, 0.1)", padding: "10px", margin: "5px 0", borderRadius: "5px" }
     };
 
     if (isConsole) {
-        // GLOBAL ERROR CATCHER (Great for old phones)
-        window.onerror = function(msg, url, line) {
-            console.error(msg + " at " + line);
+        // 3. Arrow function for error catcher
+        window.onerror = (msg, url, line) => {
+            console.error(`${msg} at ${line}`);
             return false;
         };
 
-        var originalConsole = {
-            log: console.log,
-            warn: console.warn,
-            error: console.error,
-            debug: console.debug
+        const originalConsole = { ...console }; // Spread operator to clone
+        let logQueue = [];
+        let domReady = false;
+
+        const applyStyles = (element, styleObject) => {
+            Object.assign(element.style, styleObject); // Object.assign is much cleaner
         };
 
-        var logQueue = [];
-        var domReady = false;
-
-        function safeAddToConsole(msg, type) {
-            if (domReady) {
-                addToConsole(msg, type);
-            } else {
-                logQueue.push({ msg: msg, type: type });
-            }
-        }
-
-        // Re-writing overrides to avoid spread operators (...)
-        console.log = function() {
-            var args = Array.prototype.slice.call(arguments);
-            if (originalConsole.log) originalConsole.log.apply(console, args);
-            safeAddToConsole(args.join(' '), 'log');
-        };
-
-        console.error = function() {
-            var args = Array.prototype.slice.call(arguments);
-            if (originalConsole.error) originalConsole.error.apply(console, args);
-            safeAddToConsole(args.join(' '), 'error');
-        };
-
-        function applyStyles(element, styleObject) {
-            for (var prop in styleObject) {
-                if (styleObject.hasOwnProperty(prop)) {
-                    element.style[prop] = styleObject[prop];
-                }
-            }
-        }
-
-        function addToConsole(message, type) {
-            var output = document.getElementById('consoleOutput');
+        const addToConsole = (message, type) => {
+            const output = document.getElementById('consoleOutput');
             if (!output) return;
 
-            var entry = document.createElement('div');
+            const entry = document.createElement('div');
             applyStyles(entry, styles.consoleEntry);
             
-            var style = consoleStyles[type] || { emoji: '', border: '#000' };
-            entry.style.borderLeft = "5px solid " + style.border;
-            entry.innerHTML = "<span>" + style.emoji + " " + message + "</span>";
+            const { emoji, border } = consoleStyles[type] || { emoji: '', border: '#000' };
+            entry.style.borderLeft = `5px solid ${border}`; // Template literal
+            entry.innerHTML = `<span>${emoji} ${message}</span>`;
             
             output.appendChild(entry);
             output.scrollTop = output.scrollHeight;
-        }
+        };
 
-        function modifyBody() {
+        const safeAddToConsole = (msg, type) => {
+            domReady ? addToConsole(msg, type) : logQueue.push({ msg, type });
+        };
+
+        // 4. Overriding using Rest Parameters (...)
+        ['log', 'warn', 'error', 'debug'].forEach(method => {
+            console[method] = (...args) => {
+                originalConsole[method]?.(...args);
+                safeAddToConsole(args.join(' '), method);
+            };
+        });
+
+        const modifyBody = () => {
             applyStyles(document.body, styles.body);
 
-            var frame = document.createElement('div');
+            const frame = document.createElement('div');
+            const handle = document.createElement('div');
+            const output = document.createElement('div');
+
             frame.id = 'frameContainer';
-            applyStyles(frame, styles.frameContainer);
-
-            var handle = document.createElement('div');
             handle.id = 'resizeHandle';
-            applyStyles(handle, styles.resizeHandle);
-
-            var output = document.createElement('div');
             output.id = 'consoleOutput';
+
+            applyStyles(frame, styles.frameContainer);
+            applyStyles(handle, styles.resizeHandle);
             applyStyles(output, styles.consoleOutput);
 
-            frame.appendChild(handle);
-            frame.appendChild(output);
+            frame.append(handle, output); // append() can take multiple elements
             document.body.appendChild(frame);
 
             domReady = true;
-            for (var i = 0; i < logQueue.length; i++) {
-                addToConsole(logQueue[i].msg, logQueue[i].type);
-            }
+            logQueue.forEach(item => addToConsole(item.msg, item.type));
             logQueue = [];
-        }
+        };
 
         window.addEventListener("load", modifyBody);
-        
-        console.log("Console initialized!");
+        console.log("ES6 Console initialized! 🚀");
     }
-}();
+})();
