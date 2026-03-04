@@ -166,14 +166,16 @@
             };
         } catch (e) {
             console.error("Error setting up debug console:", e);
+            alert("Error: " + e.message);
+    }
         };
-
+        /*
         //Apply the CSS to the body
         function applyStyles(element, styleObject) {
             const proxy = new Proxy(styleObject, {
                 set(target, prop, value) {
                     if (prop in element.style) {
-                        element.style[prop] = value;
+                        element.style[prop] = vawindow.onerror =lue;
                     } else {
                         console.warn(`Invalid CSS property: ${prop}`);
                     }
@@ -183,7 +185,16 @@
 
             Object.assign(proxy, styleObject);
         };
-
+        */
+        
+        function applyStyles(element, styleObject) {
+            for (var prop in styleObject) {
+                if (styleObject.hasOwnProperty(prop)) {
+                    element.style[prop] = styleObject[prop];
+                }
+            }
+        }
+        
         function modifyBody() {
             // Apply CSS to body
             applyStyles(document.body, styles.body);
