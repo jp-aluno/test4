@@ -1,73 +1,33 @@
-{
-  "name": "half-life-index",
-  "basic": {
-    "name": "root",
-    "children": [
-      { "name": "SLUS_200.66", "type": "file" },
-      { "name": "SYSTEM.CNF", "type": "file" },
-      { "name": "HLADDON.GBX", "type": "file" },
-      {
-        "name": "DECAY",
-        "type": "directory",
-        "children": [
-          { "name": "DECAY.PAK", "type": "file" },
-          { "name": "PAK0.PAK", "type": "file" }
-        ]
-      },
-      {
-        "name": "GUIDATA",
-        "type": "directory",
-        "children": [
-          { "name": "FRONTEND.PAK", "type": "file" },
-          { "name": "GUISOUND.PAK", "type": "file" },
-          { "name": "MIDDECAY.PAK", "type": "file" },
-          { "name": "MIDHL.PAK", "type": "file" },
-          { "name": "MIDHTOH.PAK", "type": "file" }
-        ]
-      },
-      {
-        "name": "PAKS",
-        "type": "directory",
-        "children": [
-          { "name": "DICTS.PAK", "type": "file" },
-          { "name": "GLOBAL.PAK", "type": "file" },
-          { "name": "GRESTORE.PAK", "type": "file" },
-          { "name": "SYSTEM.PAK", "type": "file" }
-        ]
-      },
-      {
-        "name": "VALVE",
-        "type": "directory",
-        "children": [
-          { "name": "CONFIG.CFG", "type": "file" },
-          { "name": "DECALS.PAK", "type": "file" },
-          { "name": "GDECALS.PAK", "type": "file" },
-          { "name": "PAK0.PAK", "type": "file" },
-          { "name": "VALVE.PAK", "type": "file" }
-        ]
-      }
-    ]
+[
+  {
+    "platform": "PS2",
+    "product": "SLUS_200.66",
+    "name": "Half-Life",
+    "icon": "ICONS/SYSSAVE.PAK/lambda.ico",
+    "background": "/EDITED/PS2/GUIDATA/FRONTEND.PAK/menu-edited.png",
+    "background_old": "/EDITED/PS2/cstrike/gfx/vgui/resource/background/shell/background.png",
+    "icon-external": "https://ps2iodb.com/icon/halflife-systemdata"
   },
-  "advanced": [
-    {
-      "id": "decay_pak",
-      "target": "DECAY.PAK",
-      "is_pak": true,
-      "call": "advanced.json#DECAY.PAK"
-    },
-    {
-      "id": "decay_pak0",
-      "target": "PAK0.PAK",
-      "is_pak": true,
-      "call": "advanced.json#PAK0.PAK"
-    },
-    {
-      "id": "valve_pak0",
-      "target": "PAK0.PAK",
-      "parent": "VALVE",
-      "is_pak": true,
-      "call": "advanced.json#VALVE_PAK0.PAK"
-    }
-  ]
-}
-
+  {
+    "platform": "PC",
+    "product": "valve",
+    "name": "Half-Life",    
+    "icon": "/EDITED/PC/valve/icon.png",
+    "icon_old": "",
+    "logo": "/EDITED/PS2/valve/gfx/vgui/resource/shell/game_menu.png",
+    "logo_old": "/EDITED/PS2/valve/gfx/vgui/resource/shell/game_menu_old.png",
+    "background": "/EDITED/PC/valve/gfx/vgui/resource/background/background.png",
+    "background_old": "/EDITED/PC/valve/gfx/vgui/resource/background/shell/background.png"
+  },
+  {
+    "platform": "PC",
+    "folder": "cstrike",
+    "name": "Counter-Strike",    
+    "icon": "/EDITED/PC/cstrike/icon.png",
+    "icon_old": "",
+    "logo": "/EDITED/PS2/cstrike/gfx/vgui/resource/shell/game_menu.png",
+    "logo_old": "/EDITED/PS2/cstrike/gfx/vgui/resource/shell/game_menu",
+    "background": "/EDITED/PC/cstrike/gfx/vgui/resource/background/background.png",
+    "background_old": "/EDITED/PC/cstrike/gfx/vgui/resource/background/shell/background.png"
+  }
+]
