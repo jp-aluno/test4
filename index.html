@@ -6,27 +6,8 @@
     <link href='ORIGINAL/PC/cstrike/icon.ico' rel='icon' type='image/x-icon'/>
     <link href='EDITED/PC/cstrike/icon.png' rel='icon' sizes='32x32'/>	
     <meta content='width=device-width, initial-scale=1.0, interactive-widget=resizes-content' name='viewport'/>
-    <script src="https://cdn.jsdelivr.net/gh/jonnypaes/console.js/console-min.js"></script>
-    <!-- <script src="console.js"></script> -->
-    
-    <script type='text/javascript'>
-      // 1. MUST BE AT THE TOP OF THE HEAD
-      window.onerror = function (msg, url, line, col, error) {
-        var extra = !col ? '' : '\nColumn: ' + col;
-        extra += !error ? '' : '\nStack: ' + error.stack;
-    
-        alert(
-          "&#10060; JAVASCRIPT ERROR:\n" + 
-          "-------------------\n" +
-          "Message: " + msg + "\n" +
-          "File: " + url + "\n" +
-          "Line: " + line + 
-          extra
-        );
-    
-        return false; // Let it still show in console
-      };
-    </script>
+    <!-- <script src="https://cdn.jsdelivr.net/gh/jonnypaes/console.js/console-min.js"></script> -->
+    <script src="console.js"></script>
     
     <style>
         :root { --hl: #f2ad0d; --bg: #0d0d0d; --panel: #161616; --code: #00ff00; }
@@ -69,12 +50,12 @@
     <div id="viewPort" class="grid"></div>
 
     <script>
-        let BASE_URL = ""; 
-        let DB_BASIC = null;
-        let DB_ADV = null;
-        let DB_FILES = null; 
-        let CURRENT_PRODUCT = "";
-        let CURRENT_PLATFORM = "PS2";
+        const BASE_URL = ""; 
+        const DB_BASIC = null;
+        const DB_ADV = null;
+        const DB_FILES = null; 
+        const CURRENT_PRODUCT = "";
+        const CURRENT_PLATFORM = "PS2";
 
         function log(msg) {
             const l = document.getElementById('term-log');
