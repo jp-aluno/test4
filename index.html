@@ -8,7 +8,25 @@
     <meta content='width=device-width, initial-scale=1.0, interactive-widget=resizes-content' name='viewport'/>
     <!-- <script src="https://cdn.jsdelivr.net/gh/jonnypaes/console.js/console-min.js"></script> -->
     <script src="console.js"></script>
-    
+
+    <script>
+        window.onerror = function (msg, url, line, col, error) {
+        var errorMessage = msg;
+        if (url) errorMessage += "\nFile: " + url;
+        if (line) errorMessage += "\nLine: " + line;
+        
+        // If the custom console is active, use it. 
+        // Otherwise, fall back to a standard alert for "Old Website" compatibility.
+        if (typeof console !== "undefined" && console.error) {
+            console.error(error || errorMessage);
+        } else {
+            alert("❌ JAVASCRIPT ERROR:\n" + errorMessage);
+        }
+
+        return false; // Allows the error to still appear in the browser's native dev tools
+    };
+    </script>
+
     <style>
         :root { --hl: #f2ad0d; --bg: #0d0d0d; --panel: #161616; --code: #00ff00; }
         body { background: var(--bg); color: #e0e0e0; font-family: 'Segoe UI', monospace; margin: 0; padding: 20px; }
@@ -54,8 +72,9 @@
         const DB_BASIC = null;
         const DB_ADV = null;
         const DB_FILES = null; 
-        const CURRENT_PRODUCT = "";
-        const CURRENT_PLATFORM = "PS2";
+        var CURRENT_PRODUCT = null;
+        var CURRENT_PLATFORM = "PS2";
+        var CURRENT_JSON = "";
 
         function log(msg) {
             const l = document.getElementById('term-log');
@@ -83,7 +102,7 @@
             CURRENT_JSON = params.get('json') || '';
 
             // Base URL routing
-            const BASE_URL = (window.location.protocol + '//' + window.location.hostname + window.location.pathname);
+            BASE_URL = (window.location.protocol + '//' + window.location.hostname + window.location.pathname);
             const DEFAULT_PAGE = `${BASE_URL}/DOCS/${CURRENT_PLATFORM.toUpperCase()}/${CURRENT_PRODUCT}/`;
             const CUSTOMJSON = `${CURRENT_JSON}/`;
             
