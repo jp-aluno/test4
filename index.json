@@ -1,42 +1,69 @@
-[
-  {
-    "platform": "PS2",
-    "product": "SLUS_200.66",
-    "name": "Half-Life",
-    "icon": "ICONS/SYSSAVE.PAK/lambda.ico",
-    "background": "EDITED/PS2/GUIDATA/FRONTEND.PAK/menu-edited.png",
-    "background_old": "EDITED/PS2/cstrike/gfx/vgui/resource/background/shell/background.png",
-    "icon-external": "https://ps2iodb.com/icon/halflife-systemdata",
-    "manual": "ORIGINAL/PC/cstrike/manual/manual.htm",
-    "manual-external":""
-  },
-  {
-    "platform": "PC",
-    "product": "valve",
-    "name": "Half-Life",    
-    "icon": "/EDITED/PC/valve/icon.png",
-    "icon_old": "",
-    "logo": "EDITED/PS2/valve/gfx/vgui/resource/shell/game_menu.png",
-    "logo_old": "EDITED/PS2/valve/gfx/vgui/resource/shell/game_menu_old.png",
-    "background": "EDITED/PC/valve/gfx/vgui/resource/background/background.png",
-    "background_old": "EDITED/PC/valve/gfx/vgui/resource/background/shell/background.png",
-    "manual": "",
-    "manual-external":""
-  },
-  {
-    "platform": "PC",
-    "folder": "cstrike",
-    "name": "Counter-Strike",    
-    "icon": "EDITED/PC/cstrike/icon.png",
-    "icon_old": "",
-    "logo": "EDITED/PS2/cstrike/gfx/vgui/resource/shell/game_menu.png",
-    "logo_old": "EDITED/PS2/cstrike/gfx/vgui/resource/shell/game_menu",
-    "background": "EDITED/PC/cstrike/gfx/vgui/resource/background/background.png",
-    "background_old": "/EDITED/PC/cstrike/gfx/vgui/resource/background/shell/background.png",
-    "manual": "",
-    "manual-external":""
-  }
-]
+{
+  "platforms": [
+    {
+      "platform": "PS2",
+      "product": "SLUS_200.66",
+      "name": "Half-Life",
+      "icon": "ICONS/SYSSAVE.PAK/lambda.ico",
+      "background": "EDITED/PS2/GUIDATA/FRONTEND.PAK/menu-edited.png",
+      "background_old": "EDITED/PS2/cstrike/gfx/vgui/resource/background/shell/background.png",
+      "icon_external": "https://ps2iodb.com/icon/halflife-systemdata",
+      "manual": "ORIGINAL/PC/cstrike/manual/manual.htm",
+      "manual_external": ""
+    },
+    {
+      "platform": "PC",
+      "product": "valve",
+      "name": "Half-Life",
+      "icon": "/EDITED/PC/valve/icon.png",
+      "icon_old": "",
+      "logo": "EDITED/PS2/valve/gfx/vgui/resource/shell/game_menu.png",
+      "logo_old": "EDITED/PS2/valve/gfx/vgui/resource/shell/game_menu_old.png",
+      "background": "EDITED/PC/valve/gfx/vgui/resource/background/background.png",
+      "background_old": "EDITED/PC/valve/gfx/vgui/resource/background/shell/background.png",
+      "manual": "",
+      "manual_external": ""
+    },
+    {
+      "platform": "PC",
+      "folder": "cstrike",
+      "name": "Counter-Strike",
+      "icon": "EDITED/PC/cstrike/icon.png",
+      "icon_old": "",
+      "logo": "EDITED/PS2/cstrike/gfx/vgui/resource/shell/game_menu.png",
+      "logo_old": "EDITED/PS2/cstrike/gfx/vgui/resource/shell/game_menu",
+      "background": "EDITED/PC/cstrike/gfx/vgui/resource/background/background.png",
+      "background_old": "/EDITED/PC/cstrike/gfx/vgui/resource/background/shell/background.png",
+      "manual": "",
+      "manual_external": ""
+    }
+  ],
 
-
-
+  "navigation": [
+    {
+      "menu": "ORIGINAL",
+      "emoji": "🔴",
+      "color_hex": "#ff0000"
+    },
+    {
+      "menu": "EDITED",
+      "emoji": "🟡",
+      "color_hex": "#ffff00"
+    },
+    {
+      "menu": "FILES",
+      "emoji": "🟢",
+      "color_hex": "#00ff00"
+    },
+    {
+      "menu": "DOCS",
+      "emoji": "🔵",
+      "color_hex": "#0000ff"
+    },
+    {
+      "menu": "METADATA",
+      "emoji": "🟣",
+      "color_hex": "#00ffff"
+    }
+  ]
+}
