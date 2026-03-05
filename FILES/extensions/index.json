@@ -2,130 +2,227 @@
   "categories": [
     {
       "category": "Sounds",
+      "type": "audio",
       "icon": "🔊",
       "extensions": [
         {
-          "extension": ".wav",
           "platform": "ALL",
+          "extension": ".wav",
+          "mimetype": "audio/wav",
+          "magic": [
+            {
+              "offset": 0,
+              "value": "52494646"
+            },
+            {
+              "offset": 8,
+              "value": "57415645"
+            }
+          ],
           "description": "Standard uncompressed audio files."
         },
         {
-          "extension": ".wav",
           "platform": "PS2",
-          "parameters": { "codec": "PCM_S16LE", "sample_rate": 44100, "channels": 1, "endianness": "little" },
+          "extension": ".wav",
+          "mimetype": "audio/x-wav-ps2",
+          "parameters": {
+            "codec": "PCM_S16LE",
+            "sample_rate": 44100,
+            "channels": 1,
+            "endianness": "little"
+          },
           "description": "Uncompressed mono dialogue/env effects for PS2."
         },
         {
-          "extension": ".vag",
           "platform": "PS2",
-          "parameters": { "codec": "ADPCM_PSX", "sample_rate": 44100, "block_align": 16, "interleave": 0, "header": "VAGp" },
+          "extension": ".vag",
+          "mimetype": "audio/x-ps2-vag",
+          "magic": [
+            {
+              "offset": 0,
+              "value": "56414770"
+            }
+          ],
+          "parameters": {
+            "codec": "ADPCM_PSX",
+            "sample_rate": 44100,
+            "block_align": 16,
+            "interleave": 0,
+            "header": "VAGp"
+          },
           "description": "Compressed PS2-specific audio data."
         }
       ]
     },
     {
       "category": "Models",
+      "type": "model",
       "icon": "👾",
       "extensions": [
         {
-          "extension": ".smd",
           "platform": "ALL",
+          "extension": ".smd",
+          "mimetype": "text/plain",
           "description": "Standard 3D model files (mesh and skeleton)."
         },
         {
-          "extension": ".dol",
           "platform": "PS2",
+          "extension": ".dol",
+          "mimetype": "application/x-ps2-dol",
           "description": "3D geometry and animation data for PS2 NPCs/Physics."
         },
         {
-          "extension": ".mdl",
           "platform": "PC",
+          "extension": ".mdl",
+          "mimetype": "application/octet-stream",
+          "magic": [
+            {
+              "offset": 0,
+              "value": "49445354"
+            }
+          ],
           "description": "Compiled 3D model files for PC."
         }
       ]
     },
     {
       "category": "Maps",
+      "type": "map",
       "icon": "🧱",
       "extensions": [
         {
-          "extension": ".map",
           "platform": "ALL",
+          "extension": ".map",
+          "mimetype": "text/plain",
           "description": "Uncompiled map source files."
         },
         {
-          "extension": ".bs2",
           "platform": "PS2",
+          "extension": ".bs2",
+          "mimetype": "application/x-game-bs2",
           "description": "Compiled geometry for PS2 levels."
         },
         {
-          "extension": ".bsp",
           "platform": "PC",
+          "extension": ".bsp",
+          "mimetype": "application/x-quake-bsp",
+          "magic": [
+            {
+              "offset": 0,
+              "value": "1E000000"
+            },
+            {
+              "offset": 0,
+              "value": "56425350"
+            }
+          ],
           "description": "Compiled binary space partition map for PC."
         },
         {
-          "extension": ".rmf",
           "platform": "PC",
+          "extension": ".rmf",
+          "mimetype": "application/octet-stream",
+          "magic": [
+            {
+              "offset": 0,
+              "value": "524D46"
+            }
+          ],
           "description": "Rich Map Format; editor-specific source."
         }
       ]
     },
     {
       "category": "Image",
+      "type": "image",
       "icon": "🖼️",
       "extensions": [
         {
-          "extension": ".png",
           "platform": "ALL",
+          "extension": ".png",
+          "mimetype": "image/png",
+          "magic": [
+            {
+              "offset": 0,
+              "value": "89504E470D0A1A0A"
+            }
+          ],
           "description": "Portable Network Graphics for textures and UI."
         },
         {
-          "extension": ".tga",
           "platform": "PC",
+          "extension": ".tga",
+          "mimetype": "image/x-targa",
           "description": "Targa graphic files for high-fidelity textures."
         },
         {
-          "extension": ".bmp",
           "platform": "PC",
+          "extension": ".bmp",
+          "mimetype": "image/bmp",
+          "magic": [
+            {
+              "offset": 0,
+              "value": "424D"
+            }
+          ],
           "description": "Standard bitmap image files."
         },
         {
-          "extension": ".ico",
           "platform": "PC",
+          "extension": ".ico",
+          "mimetype": "image/x-icon",
+          "magic": [
+            {
+              "offset": 0,
+              "value": "00000100"
+            }
+          ],
           "description": "Menu icons and save-game indicators."
         }
       ]
     },
     {
-      "category": "Navigation",
-      "icon": "🗺️",
-      "extensions": [
-        {
-          "extension": ".nod",
-          "platform": "PS2",
-          "description": "AI pathfinding nodes for NPCs."
-        }
-      ]
-    },
-    {
       "category": "Interface",
+      "type": "interface",
       "icon": "🖥️",
       "extensions": [
         {
-          "extension": ".psi",
           "platform": "PS2",
+          "extension": ".psi",
+          "mimetype": "image/x-ps2-psi",
           "description": "PS2 UI graphics (menus, buttons)."
         }
       ]
     },
     {
       "category": "Archive",
+      "type": "archive",
       "icon": "📦",
       "extensions": [
         {
-          "extension": ".PAK",
           "platform": "ALL",
+          "extension": ".PAK",
+          "mimetype": "application/octet-stream",
+          "magic": [
+            {
+              "offset": 0,
+              "value": "5041434B"
+            }
+          ],
           "description": "Package file bundling multiple game assets."
+        }
+      ]
+    },
+    {
+      "category": "Path Nodes",
+      "type": "navigation",
+      "icon": "🗺️",
+      "extensions": [
+        {
+          "platform": "PS2",
+          "extension": ".nod",
+          "mimetype": "application/x-pathnodes",
+          "description": "AI path node graph used for NPC navigation and pathfinding."
         }
       ]
     }
