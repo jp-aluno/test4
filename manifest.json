@@ -16,8 +16,8 @@
   "display_override": ["window-controls-overlay"],
   "screenshots": [
     {
-      "src": "https://jp-aluno.github.io/test4/EDITED/PC/cstrike/resource/shell/splash.png",
-	    "sizes": "1280x720",
+      "src": "EDITED/PC/cstrike/resource/shell/splash.png",
+	    "sizes": "640x480",
       "type": "image/jpg",
       "form_factor": "wide",
       "label": "Wallpaper"
@@ -44,7 +44,7 @@
   ],
   "icons": [
     {
-      "src": "/ORIGINAL/PC/cstrike/icon.ico",
+      "src": "ORIGINAL/PC/cstrike/cstrike.ico",
       "sizes": "any",
       "type": "image/x-icon"
     },
