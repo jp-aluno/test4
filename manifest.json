@@ -1,0 +1,101 @@
+{
+  "id": "/",
+  "dir": "ltr",
+  "lang": "en-US",
+  "name": "PS2-Strike",
+  "scope": "/",
+  "display": "standalone",
+  "start_url": ".html",
+  "short_name": "PS2-Strike",
+  "theme_color": "#FFFFFF",
+  "description": "PS2-Strike (Counter-Strike)",
+  "orientation": "natural",
+  "background_color": "#5A5A5A",
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "display_override": ["window-controls-overlay"],
+  "screenshots": [
+    {
+      "src": "https://jp-aluno.github.io/test4/EDITED/PC/cstrike/resource/shell/splash.png",
+	    "sizes": "1280x720",
+      "type": "image/jpg",
+      "form_factor": "wide",
+      "label": "Wallpaper"
+    },	
+    {
+      "src": "graph/screenshots/checkbox-off.png",
+	    "sizes": "615x974",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "O Pontual - Desligado"
+    },    
+    {
+      "src": "graph/screenshots/checkbox-on.png",
+	    "sizes": "615x974",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "O Pontual - Ligado"
+    }
+  ],
+  "features": [
+    "Cross Platform",
+    "low-latency inking",
+    "fast"
+  ],
+  "icons": [
+    {
+      "src": "/ORIGINAL/PC/cstrike/icon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "icons/square-icon.png",
+      "type": "image/png",
+      "sizes": "256x256",
+      "purpose": "maskable"
+    },	
+	{
+      "src": "icons/icon.png",
+      "type": "image/png",
+      "sizes": "256x256",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/mipmap-mdpi/ic_launcher.png",
+      "type": "image/png",
+      "sizes": "48x48",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/mipmap-hdpi/ic_launcher.png",
+      "type": "image/png",
+      "sizes": "72x72",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/mipmap-xhdpi/ic_launcher.png",
+      "type": "image/png",
+      "sizes": "96x96",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/mipmap-xxhdpi/ic_launcher.png",
+      "type": "image/png",
+      "sizes": "144x144",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/mipmap-xxxhdpi/ic_launcher.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable"
+    }
+  ],
+  "permissions": [
+        "notifications"
+  ],	
+  "categories": ["productivity"],
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  }
+}
