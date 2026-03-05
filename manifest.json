@@ -5,7 +5,7 @@
   "description": "PS2-Strike (Counter-Strike)",
   "lang": "en-US",
   "dir": "ltr",
-  "start_url": "/index.html",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "display_override": [
@@ -34,8 +34,8 @@
   },
   "protocol_handlers": [
     {
-      "protocol": "web+asset",
-      "url": "/index.html?asset=%s"
+      "protocol": "asset",
+      "url": "/?asset=%s"
     }
   ],
   "file_handlers": [
