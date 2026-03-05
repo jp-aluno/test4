@@ -6,88 +6,108 @@
     <link href='/ORIGINAL/PC/cstrike/icon.ico' rel='icon' type='image/x-icon'/>
     <link href='/EDITED/PC/cstrike/icon.png' rel='icon' sizes='32x32'/>	
     <meta content='width=device-width, initial-scale=1.0, interactive-widget=resizes-content' name='viewport'/>
+    
     <script src="https://cdn.jsdelivr.net/gh/jonnypaes/console.js/console-min.js"></script> 
-    <!-- <script src="console.js"></script>-->
-
     <script>
         window.onerror = function (msg, url, line, col, error) {
-        var errorMessage = msg;
-        if (url) errorMessage += "\nFile: " + url;
-        if (line) errorMessage += "\nLine: " + line;
-        
-        // If the custom console is active, use it. 
-        // Otherwise, fall back to a standard alert for "Old Website" compatibility.
-        if (typeof console !== "undefined" && console.error) {
-            console.error(error || errorMessage);
-        } else {
-            alert("❌ JAVASCRIPT ERROR:\n" + errorMessage);
-        }
-
-        return false; // Allows the error to still appear in the browser's native dev tools
-    };
+            var errorMessage = msg;
+            if (url) errorMessage += "\nFile: " + url;
+            if (line) errorMessage += "\nLine: " + line;
+            if (typeof console !== "undefined" && console.error) {
+                console.error(error || errorMessage);
+            } else {
+                alert("❌ JAVASCRIPT ERROR:\n" + errorMessage);
+            }
+            return false; 
+        };
     </script>
-    <style>.card,body{display:flex}:root{--size:64px;--radius:10px;--gap:18px}body{margin:28px;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;background:#0f1720;color:#e6f2ff;gap:var(--gap);flex-wrap:wrap;align-items:flex-start}.card{flex-direction:column;align-items:center;gap:8px;width:120px}.explorer-icon,.explorer-icon[src]{display:inline-grid}.label{font-size:.84rem;text-align:center;color:#cfe7ff}.explorer-icon{place-items:center;width:var(--size);height:var(--size);box-sizing:border-box;border-radius:var(--radius);background:rgba(255,255,255,.02);transition:transform .14s,border-color .14s,box-shadow .14s;font-size:calc(var(--size) * .62);line-height:1;color:inherit;overflow:hidden}.explorer-icon[src],.explorer-icon[src] img{width:var(--size);height:var(--size);object-fit:contain;background:0 0}.explorer-icon:focus,.explorer-icon:hover{transform:translateY(-4px) scale(1.03)}.level-1{border:3px solid rgba(220,40,40,.95)}.level-1:hover{border-color:#ff5050;box-shadow:0 8px 20px rgba(220,40,40,.06)}.level-2{border:5px double rgba(200,150,0,.95);padding:2px}.level-2:hover{border-color:#ffd23c;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}.level-3{border:4px groove rgba(30,160,90,.95);background:linear-gradient(180deg,rgba(255,255,255,.012),rgba(0,0,0,.06))}.level-3:hover{border-color:#37c878;box-shadow:inset 0 4px 8px rgba(0,0,0,.35)}.outline-outer{outline:rgba(255,255,255,.03) solid 3px;outline-offset:3px}@media (max-width:420px){:root{--size:48px}}</style>
+
     <style>
-        :root { --hl: #f2ad0d; --bg: #0d0d0d; --panel: #161616; --code: #00ff00; --size: 64px;
-
-    --radius: 10px;
-
-    /* ---------- palette (hex and rgb for each level) ---------- */
-    --level-1-hex: #ff0000;  --level-1-rgb: 255 0 0;    /* Vermelho (Customer Website) [Original] */
-    --level-2-hex: #ffff00;  --level-2-rgb: 255 255 0;  /* Amarelo (PS2-Strike) [Edited] - double border */
-    --level-3-hex: #00ff00;  --level-3-rgb: 0 255 0;    /* Verde (Lambda) [FILES] */
-    --level-4-hex: #00ffff;  --level-4-rgb: 0 255 255;  /* Ciano (Wiki) [DOCS] */
-    --level-5-hex: #0000ff;  --level-5-rgb: 0 0 255;    /* Azul */
-    --level-6-hex: #ff00ff;  --level-6-rgb: 255 0 255;  /* Rosa */
-
-    /* global overlay alpha for mix-blend tint (emoji-friendly) */
-    --tint-alpha: 0.40;
-
-    --filter-level-1: hue-rotate(0deg)   saturate(1.5) brightness(0.98);
-    --filter-level-2: hue-rotate(-60deg) saturate(2.0) brightness(1.02);
-    --filter-level-3: hue-rotate(90deg)  saturate(2.0) brightness(1.03);
-    --filter-level-4: hue-rotate(120deg) saturate(1.8) brightness(1.03);
-    --filter-level-5: hue-rotate(240deg) saturate(1.8) brightness(1.02);
-    --filter-level-6: hue-rotate(300deg) saturate(1.8) brightness(1.02);     
-              
-    }
+        :root { 
+            --hl: #f2ad0d; --bg: #0d0d0d; --panel: #161616; --code: #00ff00; 
+            --size: 64px; --radius: 10px; --gap: 18px;
+            
+            /* Palette */
+            --level-1-hex: #ff0000; 
+            --level-2-hex: #ffff00; 
+            --level-3-hex: #00ff00; 
+        }
         
-        body { background: var(--bg); color: #e0e0e0; font-family: 'Segoe UI', monospace; margin: 0; padding: 20px; }
+        body { 
+            background: var(--bg); color: #e0e0e0; font-family: system-ui, -apple-system, 'Segoe UI', monospace; 
+            margin: 0; padding: 20px; display: flex; flex-direction: column; gap: 15px;
+        }
+        
+        /* Top Navigation & Modes */
+        .controls-bar {
+            display: flex; gap: 10px; flex-wrap: wrap; background: var(--panel); padding: 12px; border: 1px solid #333;
+        }
+        #jsonPathInput { flex-grow: 1; padding: 8px; background: #000; color: #fff; border: 1px solid #444; font-family: monospace;}
+        
+        /* Terminal */
+        .terminal { background: #000; padding: 10px; font-size: 0.85em; color: #888; border-left: 4px solid #444; max-height: 120px; overflow-y: auto; font-family: monospace; }
+        .terminal div { margin-bottom: 4px; }
         
         /* Path Bar & Breadcrumbs */
-        .path-bar { background: var(--panel); padding: 12px; border: 1px solid #333; margin-bottom: 20px; border-left: 5px solid var(--hl); font-size: 0.9em; }
+        .path-bar { background: var(--panel); padding: 12px; border: 1px solid #333; border-left: 5px solid var(--hl); font-size: 0.9em; }
         .crumb { color: var(--hl); text-decoration: none; font-weight: bold; position: relative; }
         .crumb:hover { text-decoration: underline; }
-        
-        /* CSS Auto-Depth Numbering (The ¹²³ Magic) */
-        .crumb[data-depth]::after {
-            content: attr(data-depth);
-            font-size: 0.65em;
-            vertical-align: super;
-            opacity: 0.7;
-            margin-left: 1px;
-        }
+        .crumb[data-depth]::after { content: attr(data-depth); font-size: 0.65em; vertical-align: super; opacity: 0.7; margin-left: 1px; }
 
         /* Grid & Cards */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
-        .card { background: var(--panel); padding: 12px; border: 1px solid #222; display: flex; align-items: center; text-decoration: none; color: inherit; transition: 0.2s; }
-        .card:hover { border-color: var(--hl); background: #1a1a1a; transform: translateY(-2px); }
-        .icon { font-size: 1.4em; margin-right: 12px; }
+        .grid { display: flex; flex-wrap: wrap; gap: var(--gap); align-items: flex-start; }
+        .card { 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; width: 120px;
+            background: rgba(255,255,255,0.02); padding: 15px 5px; border-radius: var(--radius); text-decoration: none; color: inherit; transition: 0.14s; text-align: center; font-size: 0.85rem;
+            box-sizing: border-box;
+        }
+        .card:hover { transform: translateY(-4px) scale(1.03); background: rgba(255,255,255,0.05); }
+        .icon { font-size: calc(var(--size) * 0.62); line-height: 1; }
         
-        /* Terminal & File View */
+        /* Card Levels */
+        .level-1 { border: 3px solid rgba(220, 40, 40, 0.95); }
+        .level-1:hover { border-color: #ff5050; box-shadow: 0 8px 20px rgba(220, 40, 40, 0.15); }
+        .level-2 { border: 5px double rgba(200, 150, 0, 0.95); padding: 13px 3px; /* Amarelo / PAK */ }
+        .level-2:hover { border-color: #ffd23c; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12); }
+        .level-3 { border: 4px groove rgba(30, 160, 90, 0.95); }
+        .level-3:hover { border-color: #37c878; box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.35); }
+
+        /* File View */
         pre { background: #000; padding: 15px; overflow-x: auto; color: var(--code); border: 1px solid #222; font-size: 0.85em; line-height: 1.4; }
-        .terminal { background: #000; padding: 10px; font-size: 0.8em; color: #888; margin-bottom: 15px; border-left: 4px solid #444; max-height: 100px; overflow-y: auto; }
+        .file-viewer { width: 100%; background: var(--panel); padding: 20px; border: 1px solid #333; box-sizing: border-box;}
         .file-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #333; }
         .sub { font-size: 0.8em; color: #777; margin-top: 4px; text-transform: uppercase; }
-        .btn { background: #222; color: #ccc; border: 1px solid #444; padding: 6px 12px; cursor: pointer; font-size: 0.8em; margin-left: 5px; }
+        
+        /* Buttons */
+        .btn { background: #222; color: #ccc; border: 1px solid #444; padding: 6px 12px; cursor: pointer; font-size: 0.8em; border-radius: 4px;}
         .btn:hover { background: #333; border-color: var(--hl); color: #fff; }
+        .btn.active { border-color: var(--hl); color: var(--hl); font-weight: bold; }
         .badge { background: #333; color: var(--hl); padding: 2px 6px; border-radius: 3px; font-size: 0.75em; margin-right: 8px; border: 1px solid #444; }
+
+        /* Media Viewers */
+        .media-container { padding: 20px; background: #080808; text-align: center; border: 1px solid #333; border-left: 5px solid var(--hl); margin-top: 15px; border-radius: 5px; }
     </style>
 </head>
 <body>
-    <div class="pathSearch"><input type="text" name="name" value="John Doe" />
-    <div class="terminal" id="term-log">λ-Core v10.2 Booting...</div>
-    <div id="pathDisplay" class="path-bar"><a href="#" class="crumb" data-depth="1">Root</a></div>
+
+    <div class="controls-bar">
+        <input type="text" id="jsonPathInput" placeholder="Awaiting boot..." />
+        <button class="btn" onclick="loadExternalJson()">Load Path</button>
+        <div style="border-left: 1px solid #444; padding-left: 10px; display: flex; gap: 5px;">
+            <button class="btn" id="m-path" onclick="setMode('path')">PATH (B)</button>
+            <button class="btn active" id="m-key" onclick="setMode('key')">KEY (A)</button>
+            <button class="btn" id="m-pointer" onclick="setMode('pointer')">POINTER (C)</button>
+        </div>
+    </div>
+
+    <div class="terminal" id="term-log">
+        <div>> λ-Core v11.0 Booting...</div>
+    </div>
+
+    <div id="pathDisplay" class="path-bar">
+        <a href="#" class="crumb" data-depth="1">Root</a>
+    </div>
+
     <div id="viewPort" class="grid"></div>
 
     <script>
@@ -96,9 +116,11 @@
         var DB_BASIC = null;
         var DB_ADV = null;
         var DB_FILES = null; 
+        
         var CURRENT_PRODUCT = null;
         var CURRENT_PLATFORM = "PS2";
         var CURRENT_JSON = "";
+        var CURRENT_MODE = "key"; // Default tracking mode
 
         function log(msg) {
             const l = document.getElementById('term-log');
@@ -106,12 +128,38 @@
             l.scrollTop = l.scrollHeight;
         }
 
+        // Set Tracking Mode
+        function setMode(mode) {
+            CURRENT_MODE = mode;
+            document.querySelectorAll('[id^="m-"]').forEach(b => b.classList.remove('active'));
+            document.getElementById(`m-${mode}`).classList.add('active');
+            log(`Tracking Mode switched to: ${mode.toUpperCase()}`);
+        }
+
+        // Trigger manual JSON loading
+        function loadExternalJson() {
+            const val = document.getElementById('jsonPathInput').value;
+            if(val) {
+                CURRENT_JSON = val;
+                log(`Injecting external JSON path: ${val}`);
+                boot(); // Re-trigger boot sequence
+            }
+        }
+
         // Smart Property Access
         const getName = (n) => n?.Name || n?.name || "";
-        const getKids = (n) => n?.Children || n?.children || null;
         const getType = (n) => n?.Type || n?.type || "";
         
-        // Resolves the true root node of the basic.json file
+        // FIX: Ensure kids is ALWAYS an array (handles dictionaries resolving as objects)
+        const getKids = (n) => {
+            let k = n?.Children || n?.children || n?.items || null;
+            if (k && !Array.isArray(k)) {
+                // If it has a single child that was parsed as an object, wrap it in an array
+                k = [k];
+            }
+            return k;
+        };
+        
         const getEntryRoot = (db) => {
             if (!db) return null;
             return db.Basic || db.basic || db; 
@@ -123,32 +171,35 @@
             
             CURRENT_PLATFORM = params.get('platform') || 'PS2';
             CURRENT_PRODUCT = params.get('product') || 'SLUS_200.66';
-            CURRENT_JSON = params.get('json') || '';
+            if(!CURRENT_JSON) CURRENT_JSON = params.get('json') || '';
 
-            // Base URL routing
             BASE_URL = (window.location.protocol + '//' + window.location.hostname + window.location.pathname);
-            const DEFAULT_PAGE = `${BASE_URL}/DOCS/${CURRENT_PLATFORM.toUpperCase()}/${CURRENT_PRODUCT}/`;
-            const CUSTOMJSON = `${CURRENT_JSON}/`;
             
+            // Set Placeholder
+            const defaultTarget = `${BASE_URL}DOCS/${CURRENT_PLATFORM.toUpperCase()}/${CURRENT_PRODUCT}/`;
+            document.getElementById('jsonPathInput').placeholder = defaultTarget;
+
             try {
                 log(`Mounting VFS: ${CURRENT_PLATFORM}/${CURRENT_PRODUCT}`);
+                
+                const fetchPrefix = CURRENT_JSON || defaultTarget;
+                const extensionPrefix = CURRENT_JSON || `${BASE_URL}FILES/extensions/${CURRENT_PLATFORM}`;
+
                 const [r1, r2, r3] = await Promise.all([
-                    fetch(`${DEFAULT_PAGE}/manifest.json`),
-                    fetch(`${DEFAULT_PAGE}/index.json`),
-                    fetch(`${BASE_URL}/FILES/extensions/${CURRENT_PLATFORM}`)
-                    //fetch("https://jp-aluno.github.io/test3/FILES/extensions/index.json") // Updated extension path
+                    fetch(`${fetchPrefix}manifest.json`).catch(() => null),
+                    fetch(`${fetchPrefix}index.json`).catch(() => null),
+                    fetch(`${extensionPrefix}`).catch(() => null)
                 ]);
                 
-                DB_BASIC = r1.ok ? await r1.json() : null;
-                DB_ADV = r2.ok ? await r2.json() : null;
-                DB_FILES = r3.ok ? await r3.json() : null;
+                DB_BASIC = (r1 && r1.ok) ? await r1.json() : null;
+                DB_ADV = (r2 && r2.ok) ? await r2.json() : null;
+                DB_FILES = (r3 && r3.ok) ? await r3.json() : null;
 
-                if (!DB_BASIC) throw new Error("OS layer (index.json) missing at mount point.");
+                if (!DB_BASIC && !DB_ADV) throw new Error("OS layer (index/manifest.json) missing at mount point.");
 
                 log("Metadata Synced. VFS Bridging Active.");
 
                 window.onhashchange = () => {
-                    // Reload if platform params change, otherwise just route
                     if (window.location.hash.includes('platform=') && !window.location.hash.includes(CURRENT_PLATFORM)) {
                         location.reload();
                     } else {
@@ -158,8 +209,8 @@
 
                 router();
             } catch(e) { 
-                log("Boot Error: " + e.message); 
-                document.getElementById('viewPort').innerHTML = `<div style="color:red;padding:20px;">CRITICAL_ERROR: ${e.message}</div>`;
+                log(`CRITICAL ERROR: ${e.message}`); 
+                document.getElementById('viewPort').innerHTML = `<div style="color:#ff5050; padding:20px; background:#1a0505; border:1px solid #ff0000; border-radius:5px;">CRITICAL_ERROR: ${e.message}</div>`;
             }
         }
 
@@ -168,22 +219,24 @@
             const ext = "." + fileName.split('.').pop().toLowerCase();
             let fallback = null;
 
-            for (const cat of DB_FILES.categories) {
-                for (const entry of cat.extensions) {
-                    if (entry.extension.toLowerCase() === ext) {
-                        if (entry.platform.toUpperCase() === CURRENT_PLATFORM.toUpperCase()) 
-                            return { icon: cat.icon, desc: entry.description, cat: cat.category };
-                        if (entry.platform.toUpperCase() === "ALL") 
-                            fallback = { icon: cat.icon, desc: entry.description, cat: cat.category };
+            if (DB_FILES.categories) {
+                for (const cat of DB_FILES.categories) {
+                    for (const entry of cat.extensions) {
+                        const checkExt = typeof entry === 'string' ? entry : entry.extension;
+                        if (checkExt.toLowerCase() === ext) {
+                            return { icon: cat.icon || "📄", desc: entry.description || "Data", cat: cat.category };
+                        }
                     }
                 }
             }
-            return fallback || { icon: "📄", desc: "Asset Leaf Node", cat: "Unclassified" };
+            return { icon: "📄", desc: "Asset Leaf Node", cat: "Unclassified" };
         }
 
         function findInTree(tree, name) {
             if (!tree) return null;
-            const kids = Array.isArray(tree) ? tree : getKids(tree);
+            
+            // If tree is the array itself (e.g. index.json root)
+            let kids = Array.isArray(tree) ? tree : getKids(tree);
             if (!kids) return null;
 
             let found = kids.find(k => getName(k).toLowerCase() === name.toLowerCase());
@@ -196,9 +249,9 @@
             return null;
         }
 
-        // VFS Router: Bridges basic.json to advanced.json and calculates depth
         async function resolveTarget(hash) {
-            const root = getEntryRoot(DB_BASIC);
+            // DB_ADV serves as fallback root if DB_BASIC isn't present
+            const root = getEntryRoot(DB_BASIC) || getEntryRoot(DB_ADV);
             if (!root) return null;
 
             const cleanHash = decodeURIComponent(hash.split('?')[0]);
@@ -209,37 +262,90 @@
             const segments = cleanHash.split('/').filter(x => x);
             let current = root;
             let trace = "";
-            let currentDepth = 1; // 1 = Root
+            let currentDepth = 1; 
+            let insidePak = false;
 
             for (const seg of segments) {
-                let list = getKids(current);
-                let found = list ? list.find(item => getName(item).toLowerCase() === seg.toLowerCase()) : null;
+                let list = getKids(current) || [];
+                let found = list.find(item => getName(item).toLowerCase() === seg.toLowerCase());
 
-                // VFS Intercept: Transition from basic OS layer to advanced Archive layer
+                // Intercept VFS mapping (Bridging)
                 if (seg.toLowerCase().endsWith('.pak') || seg.toLowerCase().endsWith('.mdl')) {
-                    const advNode = findInTree(DB_ADV, seg);
-                    if (advNode) {
-                        log(`VFS Mount: Bridging ${seg} to advanced.json mapping.`);
-                        found = advNode; // Overwrite OS file node with Archive folder node
+                    insidePak = true;
+                    if (DB_ADV) {
+                        const advNode = findInTree(DB_ADV, seg);
+                        if (advNode) {
+                            found = advNode; 
+                        }
                     }
                 }
 
                 if (!found) return null;
                 current = found;
                 trace += (trace ? "/" : "") + getName(current);
-                currentDepth++; // Increment depth layer
+                currentDepth++; 
             }
             
-            return { node: current, path: trace, segments: segments, depth: currentDepth };
+            return { node: current, path: trace, segments: segments, depth: currentDepth, isPak: insidePak };
         }
 
-        function renderFileView(file) {
+        // Scalable, Runtime Logic for parsing specific file extensions inside JS
+        function renderFileView(file, fullPath) {
             const view = document.getElementById('viewPort');
             view.className = ""; 
+            
             const fileName = getName(file);
             const meta = getFileMetadata(fileName);
+            const ext = fileName.includes('.') ? fileName.split('.').pop().toLowerCase() : '';
+            
+            // Execute Output Logging based on mode
+            if (CURRENT_MODE === 'key') {
+                console.log(`FILES / KEY (A): ${fileName}`);
+                log(`FILES / KEY (A): ${fileName}`);
+            } else if (CURRENT_MODE === 'path') {
+                console.log(`FILES / PATH (B): ${fullPath}`);
+                log(`FILES / PATH (B): ${fullPath}`);
+            } else if (CURRENT_MODE === 'pointer') {
+                console.log(`FILES / POINTER (C):`, file);
+                log(`FILES / POINTER (C): [Object logged to DevTools Console]`);
+            }
+
+            // Fallback content dump
             const content = file.Content || file.content || JSON.stringify(file, null, 2);
             
+            // Build Contextual Media HTML based on file extension
+            let mediaPreview = '';
+            
+            if (['wav', 'mp3', 'ogg'].includes(ext)) {
+                mediaPreview = `
+                    <div class="media-container">
+                        <h4 style="margin-top:0">🔊 Audio Decoder</h4>
+                        <audio controls src="${fullPath}"></audio>
+                    </div>`;
+            } else if (['png', 'jpg', 'jpeg', 'gif', 'ico'].includes(ext)) {
+                mediaPreview = `
+                    <div class="media-container">
+                        <h4 style="margin-top:0">🖼️ Image Decoder</h4>
+                        <img src="${fullPath}" style="max-width: 100%; max-height: 400px; border-radius: 4px;" />
+                    </div>`;
+            } else if (['mdl', 'bsp', 'dol'].includes(ext)) {
+                mediaPreview = `
+                    <div class="media-container">
+                        <h4 style="margin-top:0">🧊 3D WebGL Parser</h4>
+                        <canvas width="400" height="250" style="background:#111; border:1px dashed #444; margin:auto; display:block;"></canvas>
+                        <p style="color:#777; font-size:0.8em; margin-bottom:0;">(Runtime 3D Model logic hooks here)</p>
+                    </div>`;
+            } else if (['txt', 'json', 'cfg'].includes(ext)) {
+                mediaPreview = `<pre id="fileContent">${content}</pre>`;
+            } else {
+                mediaPreview = `
+                    <div class="media-container">
+                        <h4 style="margin-top:0">⚙️ Binary/Archive Data</h4>
+                        <p style="color:#777; font-size:0.8em;">Hex viewer or external parser required for ${ext.toUpperCase()}.</p>
+                    </div>
+                    <pre id="fileContent">${content}</pre>`;
+            }
+
             view.innerHTML = `
                 <div class="file-viewer">
                     <div class="file-header">
@@ -248,18 +354,13 @@
                             <div class="sub"><span class="badge">${meta.cat}</span> ${meta.desc}</div>
                         </div>
                         <div class="file-actions">
-                            <button class="btn" onclick="googleIt()">Search</button>
+                            <button class="btn" onclick="window.open('https://www.google.com/search?q=${CURRENT_PRODUCT}+${fileName}', '_blank')">Search</button>
                             <button class="btn active" onclick="downloadFile('${fileName}', \`${content.replace(/`/g, '\\`')}\`)">Extract</button>
                         </div>
                     </div>
-                    <pre id="fileContent">${content}</pre>
+                    ${mediaPreview}
                 </div>`;
         }
-
-        window.googleIt = () => {
-            const fileName = getName(document.querySelector('.file-viewer h2')); 
-            window.open(`https://www.google.com/search?q=${CURRENT_PRODUCT}+${fileName}`, "_blank");
-        };
 
         window.downloadFile = (name, data) => {
             const blob = new Blob([data], { type: 'text/plain' });
@@ -277,43 +378,48 @@
                 return;
             }
 
-            const { node, path, segments } = result;
+            const { node, path, segments, depth, isPak } = result;
             const currentParams = window.location.hash.includes('?') ? "?" + window.location.hash.split('?')[1] : "";
             
-            // Dynamic CSS-Driven Breadcrumbs with data-depth
             let breadcrumbs = `<a href="#/${currentParams}" class="crumb" data-depth="1">Root</a>`;
             let currentBuild = "";
             
             segments.forEach((seg, index) => {
                 currentBuild += "/" + seg;
-                // index 0 is depth 2, index 1 is depth 3, etc.
                 const crumbDepth = index + 2; 
                 breadcrumbs += ` / <a href="#${currentBuild}${currentParams}" class="crumb" data-depth="${crumbDepth}">${seg}</a>`;
             });
             
             document.getElementById('pathDisplay').innerHTML = breadcrumbs;
 
-            // Render children (grid) or file data
             const kids = getKids(node);
+            
             if (kids && kids.length > 0) {
-                view.className = "grid"; view.innerHTML = "";
+                view.className = "grid"; 
+                view.innerHTML = "";
+                
                 kids.forEach(k => {
                     const name = getName(k);
                     const meta = getFileMetadata(name);
                     
-                    // Folder check considers advanced.json interception
-                    const isPak = name.toLowerCase().endsWith('.pak');
-                    const isDir = getType(k).toLowerCase() === "directory" || getKids(k) || isPak;
+                    const isChildPak = name.toLowerCase().endsWith('.pak');
+                    const isDir = getType(k).toLowerCase() === "directory" || getKids(k) || isChildPak;
                     const icon = isDir ? "📁" : meta.icon;
                     
+                    // Determine double borders vs standard borders based on depth/context
+                    let borderClass = "level-3";
+                    if (depth === 1 && !isPak) borderClass = "level-1"; // Root
+                    if (isPak || isChildPak) borderClass = "level-2";   // Inside/Is a PAK (Double border)
+                    
                     const card = document.createElement('a');
-                    card.className = "card";
+                    card.className = `card ${borderClass}`;
                     card.href = `#${path ? path+'/' : ''}${name}${currentParams}`;
                     card.innerHTML = `<span class="icon">${icon}</span><b>${name}</b>`;
                     view.appendChild(card);
                 });
             } else {
-                renderFileView(node);
+                // If it's a file, pass node and its calculated path to the renderer
+                renderFileView(node, path);
             }
         }
         
