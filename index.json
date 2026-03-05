@@ -7,7 +7,7 @@
     "background": "EDITED/PS2/GUIDATA/FRONTEND.PAK/menu-edited.png",
     "background_old": "EDITED/PS2/cstrike/gfx/vgui/resource/background/shell/background.png",
     "icon-external": "https://ps2iodb.com/icon/halflife-systemdata",
-    "manual": "ORIGINAL/PC/cstrike/manual",
+    "manual": "ORIGINAL/PC/cstrike/manual/manual.htm",
     "manual-external":""
   },
   {
@@ -37,5 +37,6 @@
     "manual-external":""
   }
 ]
+
 
 
