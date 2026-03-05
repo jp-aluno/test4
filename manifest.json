@@ -17,14 +17,7 @@
   "theme_color": "#FFFFFF",
   "background_color": "#5A5A5A",
   "categories": [
-    "games",
-    "developer",
-    "utilities"
-  ],
-  "features": [
-    "Cross Platform",
-    "low-latency inking",
-    "fast"
+    "DOCS", "EDITED", "FILES", "ORIGINAL"
   ],
   "permissions": [
     "notifications"
