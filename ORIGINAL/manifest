@@ -1,0 +1,14 @@
+{
+  "id": "/",
+  "name": "PS2-Strike - ORIGINAL",
+  "description": "PS2-Strike - ORIGINAL",
+  "navigation": [
+    {
+      "menu": "ORIGINAL",
+      "id": "1",
+      "emoji": "🔴",
+      "color_hex": "#ff0000",
+      "theme_color": "#ff0000"
+    }
+  ]
+}
