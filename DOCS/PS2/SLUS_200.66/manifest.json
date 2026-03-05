@@ -1,4 +1,19 @@
 {
+  "@context": {
+    "name": "http://schema.org/name",
+    "path": "http://schema.org/url",
+    "type": "http://schema.org/additionalType",
+    "size": "http://schema.org/contentSize",
+    "description": "http://schema.org/description",
+    "extension": "http://schema.org/fileExtension",
+    "depth": {"@id": "http://example.org/schema/depth", "@type": "xsd:integer"},
+    "segments": {"@id": "http://example.org/schema/segments", "@type": "@id"},
+    "hashes": "http://schema.org/checksum",
+    "SHA256": {"@id": "http://schema.org/sha256", "@type": "xsd:string"},
+    "SHA1": {"@id": "http://schema.org/sha1", "@type": "xsd:string"},
+    "MD5": {"@id": "http://schema.org/md5", "@type": "xsd:string"},
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
   "manifestVersion": 1,
   "root": "root",
   "items": [
@@ -102,4 +117,5 @@
       }
     }
   ]
+
 }
