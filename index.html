@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>λ Engine: V11</title>
-    <link href='ORIGINAL/PC/cstrike/icon.ico' rel='icon' type='image/x-icon'/>
-    <link href='EDITED/PC/cstrike/icon.png' rel='icon' sizes='32x32'/>	
+    <link href='/ORIGINAL/PC/cstrike/icon.ico' rel='icon' type='image/x-icon'/>
+    <link href='/EDITED/PC/cstrike/icon.png' rel='icon' sizes='32x32'/>	
     <meta content='width=device-width, initial-scale=1.0, interactive-widget=resizes-content' name='viewport'/>
-    <!-- <script src="https://cdn.jsdelivr.net/gh/jonnypaes/console.js/console-min.js"></script> -->
-    <script src="console.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/jonnypaes/console.js/console-min.js"></script> 
+    <!-- <script src="console.js"></script>-->
 
     <script>
         window.onerror = function (msg, url, line, col, error) {
@@ -26,9 +26,32 @@
         return false; // Allows the error to still appear in the browser's native dev tools
     };
     </script>
-
+    <style>.card,body{display:flex}:root{--size:64px;--radius:10px;--gap:18px}body{margin:28px;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;background:#0f1720;color:#e6f2ff;gap:var(--gap);flex-wrap:wrap;align-items:flex-start}.card{flex-direction:column;align-items:center;gap:8px;width:120px}.explorer-icon,.explorer-icon[src]{display:inline-grid}.label{font-size:.84rem;text-align:center;color:#cfe7ff}.explorer-icon{place-items:center;width:var(--size);height:var(--size);box-sizing:border-box;border-radius:var(--radius);background:rgba(255,255,255,.02);transition:transform .14s,border-color .14s,box-shadow .14s;font-size:calc(var(--size) * .62);line-height:1;color:inherit;overflow:hidden}.explorer-icon[src],.explorer-icon[src] img{width:var(--size);height:var(--size);object-fit:contain;background:0 0}.explorer-icon:focus,.explorer-icon:hover{transform:translateY(-4px) scale(1.03)}.level-1{border:3px solid rgba(220,40,40,.95)}.level-1:hover{border-color:#ff5050;box-shadow:0 8px 20px rgba(220,40,40,.06)}.level-2{border:5px double rgba(200,150,0,.95);padding:2px}.level-2:hover{border-color:#ffd23c;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}.level-3{border:4px groove rgba(30,160,90,.95);background:linear-gradient(180deg,rgba(255,255,255,.012),rgba(0,0,0,.06))}.level-3:hover{border-color:#37c878;box-shadow:inset 0 4px 8px rgba(0,0,0,.35)}.outline-outer{outline:rgba(255,255,255,.03) solid 3px;outline-offset:3px}@media (max-width:420px){:root{--size:48px}}</style>
     <style>
-        :root { --hl: #f2ad0d; --bg: #0d0d0d; --panel: #161616; --code: #00ff00; }
+        :root { --hl: #f2ad0d; --bg: #0d0d0d; --panel: #161616; --code: #00ff00; --size: 64px;
+
+    --radius: 10px;
+
+    /* ---------- palette (hex and rgb for each level) ---------- */
+    --level-1-hex: #ff0000;  --level-1-rgb: 255 0 0;    /* Vermelho (Customer Website) [Original] */
+    --level-2-hex: #ffff00;  --level-2-rgb: 255 255 0;  /* Amarelo (PS2-Strike) [Edited] - double border */
+    --level-3-hex: #00ff00;  --level-3-rgb: 0 255 0;    /* Verde (Lambda) [FILES] */
+    --level-4-hex: #00ffff;  --level-4-rgb: 0 255 255;  /* Ciano (Wiki) [DOCS] */
+    --level-5-hex: #0000ff;  --level-5-rgb: 0 0 255;    /* Azul */
+    --level-6-hex: #ff00ff;  --level-6-rgb: 255 0 255;  /* Rosa */
+
+    /* global overlay alpha for mix-blend tint (emoji-friendly) */
+    --tint-alpha: 0.40;
+
+    --filter-level-1: hue-rotate(0deg)   saturate(1.5) brightness(0.98);
+    --filter-level-2: hue-rotate(-60deg) saturate(2.0) brightness(1.02);
+    --filter-level-3: hue-rotate(90deg)  saturate(2.0) brightness(1.03);
+    --filter-level-4: hue-rotate(120deg) saturate(1.8) brightness(1.03);
+    --filter-level-5: hue-rotate(240deg) saturate(1.8) brightness(1.02);
+    --filter-level-6: hue-rotate(300deg) saturate(1.8) brightness(1.02);     
+              
+    }
+        
         body { background: var(--bg); color: #e0e0e0; font-family: 'Segoe UI', monospace; margin: 0; padding: 20px; }
         
         /* Path Bar & Breadcrumbs */
@@ -62,12 +85,13 @@
     </style>
 </head>
 <body>
-
+    <div class="pathSearch"><input type="text" name="name" value="John Doe" />
     <div class="terminal" id="term-log">λ-Core v10.2 Booting...</div>
     <div id="pathDisplay" class="path-bar"><a href="#" class="crumb" data-depth="1">Root</a></div>
     <div id="viewPort" class="grid"></div>
 
     <script>
+        var CONSOLE = true;
         var BASE_URL = ""; 
         var DB_BASIC = null;
         var DB_ADV = null;
