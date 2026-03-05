@@ -1,4 +1,10 @@
-﻿{
+{
+ "@context": {
+    "name": "http://schema.org/name",
+    "path": "http://schema.org/url",
+    "type": "http://schema.org/additionalType",
+    "size": "http://schema.org/contentSize"
+  },
   "name":"root",
   "children":[
     {
@@ -8,12 +14,6 @@
         {
           "name":"PAK0.PAK",
           "type":"directory",
-          "description":{
-            "arguments":{
-              "flag":"n",
-              "alignment":2048
-            }
-          },
           "children":[
             {
               "name":"maps",
@@ -19762,4 +19762,5 @@
       ]
     }
   ]
+
 }
