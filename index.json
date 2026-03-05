@@ -4,9 +4,11 @@
     "product": "SLUS_200.66",
     "name": "Half-Life",
     "icon": "ICONS/SYSSAVE.PAK/lambda.ico",
-    "background": "/EDITED/PS2/GUIDATA/FRONTEND.PAK/menu-edited.png",
-    "background_old": "/EDITED/PS2/cstrike/gfx/vgui/resource/background/shell/background.png",
-    "icon-external": "https://ps2iodb.com/icon/halflife-systemdata"
+    "background": "EDITED/PS2/GUIDATA/FRONTEND.PAK/menu-edited.png",
+    "background_old": "EDITED/PS2/cstrike/gfx/vgui/resource/background/shell/background.png",
+    "icon-external": "https://ps2iodb.com/icon/halflife-systemdata",
+    "manual": "",
+    "manual-external":""
   },
   {
     "platform": "PC",
@@ -14,20 +16,25 @@
     "name": "Half-Life",    
     "icon": "/EDITED/PC/valve/icon.png",
     "icon_old": "",
-    "logo": "/EDITED/PS2/valve/gfx/vgui/resource/shell/game_menu.png",
-    "logo_old": "/EDITED/PS2/valve/gfx/vgui/resource/shell/game_menu_old.png",
-    "background": "/EDITED/PC/valve/gfx/vgui/resource/background/background.png",
-    "background_old": "/EDITED/PC/valve/gfx/vgui/resource/background/shell/background.png"
+    "logo": "EDITED/PS2/valve/gfx/vgui/resource/shell/game_menu.png",
+    "logo_old": "EDITED/PS2/valve/gfx/vgui/resource/shell/game_menu_old.png",
+    "background": "EDITED/PC/valve/gfx/vgui/resource/background/background.png",
+    "background_old": "EDITED/PC/valve/gfx/vgui/resource/background/shell/background.png",
+    "manual": "",
+    "manual-external":""
   },
   {
     "platform": "PC",
     "folder": "cstrike",
     "name": "Counter-Strike",    
-    "icon": "/EDITED/PC/cstrike/icon.png",
+    "icon": "EDITED/PC/cstrike/icon.png",
     "icon_old": "",
-    "logo": "/EDITED/PS2/cstrike/gfx/vgui/resource/shell/game_menu.png",
-    "logo_old": "/EDITED/PS2/cstrike/gfx/vgui/resource/shell/game_menu",
-    "background": "/EDITED/PC/cstrike/gfx/vgui/resource/background/background.png",
-    "background_old": "/EDITED/PC/cstrike/gfx/vgui/resource/background/shell/background.png"
+    "logo": "EDITED/PS2/cstrike/gfx/vgui/resource/shell/game_menu.png",
+    "logo_old": "EDITED/PS2/cstrike/gfx/vgui/resource/shell/game_menu",
+    "background": "EDITED/PC/cstrike/gfx/vgui/resource/background/background.png",
+    "background_old": "/EDITED/PC/cstrike/gfx/vgui/resource/background/shell/background.png",
+    "manual": "",
+    "manual-external":""
   }
 ]
+
