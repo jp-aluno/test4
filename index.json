@@ -21,9 +21,9 @@
       "name": "Half-Life",
       "icon": "/EDITED/PC/valve/icon.png",
       "icon_old": "",
-      "logo": "EDITED/PS2/valve/gfx/vgui/resource/shell/game_menu.png",
+      "logo": "EDITED/PS2/valve/resource/shell/game_menu.png",
       "logo_old": "EDITED/PS2/valve/gfx/vgui/resource/shell/game_menu_old.png",
-      "background": "EDITED/PC/valve/gfx/vgui/resource/background.png",
+      "background": "EDITED/PC/valve/resource/background.png",
       "background_old": "EDITED/PC/valve/gfx/vgui/resource/background/shell/splash.png",
       "manual": "",
       "manual_external": "",
@@ -38,9 +38,9 @@
       "name": "Counter-Strike",
       "icon": "EDITED/PC/cstrike/icon.png",
       "icon_old": "",
-      "logo": "EDITED/PS2/cstrike/gfx/vgui/resource/shell/game_menu.png",
+      "logo": "EDITED/PS2/cstrike/resource/shell/game_menu.png",
       "logo_old": "EDITED/PS2/cstrike/gfx/vgui/resource/shell/game_menu",
-      "background": "EDITED/PC/cstrike/gfx/vgui/resource/background.png",
+      "background": "EDITED/PC/cstrike/resource/background.png",
       "background_old": "EDITED/PC/cstrike/gfx/vgui/resource/background/shell/splash.png",
       "manual": "ORIGINAL/PC/cstrike/manual/manual.htm",
       "manual_external": "",
@@ -79,6 +79,7 @@
     }
   ]
 }
+
 
 
 
