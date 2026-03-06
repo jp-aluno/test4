@@ -1,0 +1,21 @@
+{
+  "platform": "PC",
+  "categories": [
+    {
+      "category": "Sounds",
+      "extensions": [".wav"]
+    },
+    {
+      "category": "Models",
+      "extensions": [".dol"]
+    },
+    {
+      "category": "Maps",
+      "extensions": [".bsp"]
+    },
+    {
+      "category": "Image",
+      "extensions": [".tga", ".bmp", ".ico"]
+    }
+  ]
+}
