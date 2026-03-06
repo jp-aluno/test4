@@ -73,7 +73,7 @@
     <audio id="music-channel" loop></audio>
 
     <script>
-        const API_BASE = "https://jp-aluno.github.io/test4/";
+        const API_BASE = "./"; 
         let db = null;
 
         const ui = {
@@ -110,7 +110,8 @@
         async function startApp() {
             log("FETCHING DATA...");
             if (!db) {
-                const res = await fetch(API_BASE + "index.json");
+                const res = await fetch(getUrl("index.json")); //const res = await fetch(API_BASE + "index.json");
+                if (!res.ok) throw new Error(`Missing index.json at ${res.url}`);
                 db = await res.json();
             }
 
@@ -160,7 +161,73 @@
                 ui.grid.appendChild(card);
             });
         }
-
+        
+        function renderHome() {
+            ui.grid.innerHTML = "";
+            ui.nav.classList.remove('active');
+            ui.back.style.display = "none";
+            ui.bg.style.backgroundImage = "none";
+            document.body.classList.remove('focused-mode');
+            ui.music.pause();
+            ui.title.innerText = "SELECT PLATFORM";
+        
+            const platforms = [...new Set(db.platforms.map(p => p.platform))];
+            platforms.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `<h2>${p}</h2>`;
+                card.onclick = () => {
+                    const sample = db.platforms.find(x => x.platform === p);
+                    if(sample.sound_click) playSfx(sample.sound_click);
+                    renderLibrary(p);
+                };
+                ui.grid.appendChild(card);
+            });
+            log("SYSTEM READY");
+        }
+        
+        function renderGameView(game) {
+            document.body.classList.add('focused-mode');
+            ui.title.innerText = game.name;
+            ui.grid.innerHTML = game.icon ? `<img src="${getUrl(game.icon)}" style="width:128px; height:128px;">` : '';
+            
+            ui.nav.innerHTML = "";
+            ui.nav.classList.add('active');
+        
+            db.navigation.forEach(n => {
+                // Create as a real Anchor tag
+                const item = document.createElement('a');
+                item.className = 'nav-item';
+                
+                // Logical Pathing: 
+                // If n.path is "/" it goes to the detected CURRENT_ROOT
+                item.href = (n.path === "/") ? CURRENT_ROOT : CURRENT_ROOT + n.path;
+                
+                item.style.textDecoration = "none";
+                item.innerHTML = `${n.emoji} ${n.menu}`;
+                item.style.color = n.color_hex;
+        
+                item.onmouseenter = () => {
+                    item.style.borderColor = n.color_hex;
+                    if(game.buttonrollover) playSfx(game.buttonrollover);
+                };
+                item.onmouseleave = () => item.style.borderColor = 'transparent';
+                
+                item.onclick = (e) => {
+                    if(game.sound_click) playSfx(game.sound_click);
+                    // The browser will handle the navigation via href
+                };
+        
+                ui.nav.appendChild(item);
+            });
+        }
+        
+        // Global initialization
+        window.onload = startApp;
+        
+        function log(msg) { ui.status.innerText = msg; console.log(`[SYS]: ${msg}`); }
+        function playSfx(path) { if(path) { ui.sfx.src = getUrl(path); ui.sfx.play().catch(()=>{}); } }
+              
         function renderGameView(game) {
             document.body.classList.add('focused-mode');
             ui.title.innerText = game.name;
