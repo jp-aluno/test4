@@ -3,13 +3,17 @@
     {
       "platform": "PS2",
       "product": "SLUS_200.66",
-      "name": "Half-Life",
-      "icon": "ICONS/SYSSAVE.PAK/lambda.ico",
+      "name": "Half-Life",      
+      "icon": "EDITED/PS2/ICONS/SYSSAVE.PAK/lambda.ico.obj",
+      "icon_external": "https://ps2iodb.com/icon/halflife-systemdata",
       "background": "EDITED/PS2/GUIDATA/FRONTEND.PAK/menu-edited.png",
       "background_old": "EDITED/PS2/cstrike/gfx/vgui/resource/background/shell/background.png",
-      "icon_external": "https://ps2iodb.com/icon/halflife-systemdata",
       "manual": "ORIGINAL/PC/cstrike/manual/manual.htm",
-      "manual_external": ""
+      "manual_external": "",
+      "music": "EDITED/PS2/MUSIC/FELOOP.mp3",
+      "sound_click": "EDITED/PS2/GUIDATA/GUISOUND.PAK/confirm.wav",
+      "sound_click_release": "EDITED/PS2/GUIDATA/GUISOUND.PAK/select.wav",
+      "buttonrollover": "EDITED/PS2/GUIDATA/GUISOUND.PAK/select.wav"
     },
     {
       "platform": "PC",
@@ -22,7 +26,11 @@
       "background": "EDITED/PC/valve/gfx/vgui/resource/background/background.png",
       "background_old": "EDITED/PC/valve/gfx/vgui/resource/background/shell/background.png",
       "manual": "",
-      "manual_external": ""
+      "manual_external": "",
+      "music": "ORIGINAL/PC/cstrike/media",
+      "sound_click": "ORIGINAL/PC/valve/sound/Ui/buttonclick.wav",
+      "sound_click_release": "ORIGINAL/PC/valve/sound/Ui/buttonclickrelease.wav",
+      "buttonrollover": "ORIGINAL/PC/valve/sound/Ui/buttonrollover.wav"
     },
     {
       "platform": "PC",
@@ -33,9 +41,13 @@
       "logo": "EDITED/PS2/cstrike/gfx/vgui/resource/shell/game_menu.png",
       "logo_old": "EDITED/PS2/cstrike/gfx/vgui/resource/shell/game_menu",
       "background": "EDITED/PC/cstrike/gfx/vgui/resource/background/background.png",
-      "background_old": "/EDITED/PC/cstrike/gfx/vgui/resource/background/shell/background.png",
-      "manual": "",
-      "manual_external": ""
+      "background_old": "EDITED/PC/cstrike/gfx/vgui/resource/background/shell/background.png",
+      "manual": "ORIGINAL/PC/cstrike/manual/manual.htm",
+      "manual_external": "",
+      "music": "ORIGINAL/PC/cstrike/media/",
+      "sound_click": "ORIGINAL/PC/valve/sound/Ui",
+      "sound_click_release": "ORIGINAL/PC/valve/sound/Ui",
+      "buttonrollover": "ORIGINAL/PC/valve/sound/Ui"
     }
   ],
 
@@ -67,3 +79,4 @@
     }
   ]
 }
+
