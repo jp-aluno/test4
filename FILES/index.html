@@ -173,7 +173,8 @@
             CURRENT_PRODUCT = params.get('product') || 'SLUS_200.66';
             if(!CURRENT_JSON) CURRENT_JSON = params.get('json') || '';
 
-            BASE_URL = (window.location.protocol + '//' + window.location.hostname + window.location.pathname);
+            BASE_URL = (window.location.protocol + '//' + window.location.hostname);
+            BASE_PATH = (window.location.pathname.toUpperCase());
             
             // Set Placeholder
             const defaultTarget = `${BASE_URL}/${CURRENT_PLATFORM.toUpperCase()}/${CURRENT_PRODUCT}/`;
