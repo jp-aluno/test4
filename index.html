@@ -170,33 +170,43 @@
             ui.nav.classList.add('active');
 
             db.navigation.forEach(n => {
-                const item = document.createElement('div');
+                // 1. Create the element as an anchor tag
+                const item = document.createElement('a');
                 item.className = 'nav-item';
+                item.style.textDecoration = 'none'; // Keep clean look
+                item.style.display = 'inline-block';
+                
+                // 2. Set the Href
+                // If n.path is "/" or empty, it goes to ROOT_URL. 
+                // Otherwise, it appends the path.
+                item.href = n.path === "/" ? ROOT_URL : ROOT_URL + n.path;
+            
                 item.innerHTML = `${n.emoji} ${n.menu}`;
                 item.style.color = n.color_hex;
             
                 item.onmouseenter = () => {
                     item.style.borderColor = n.color_hex;
-                    playSfx(game.buttonrollover);
+                    if(game.buttonrollover) playSfx(game.buttonrollover);
                 };
             
                 item.onmouseleave = () => {
                     item.style.borderColor = 'transparent';
                 };
             
-                item.onclick = () => {
-                    playSfx(game.sound_click);
-            
-                    if (n.path) {
-                        const base = window.location.origin + window.location.pathname;
-                        const root = base.replace(/[^\/]*$/, ''); // keep current folder
-                        window.location.href = root + n.path;
-                    }
+                item.onclick = (e) => {
+                    // Play sound before navigating
+                    if(game.sound_click) playSfx(game.sound_click);
+                    
+                    // Optional: If you want a slight delay so the sound plays 
+                    // before the page changes, uncomment the next lines:
+                    /*
+                    e.preventDefault();
+                    setTimeout(() => { window.location.href = item.href; }, 150);
+                    */
                 };
             
                 ui.nav.appendChild(item);
             });
-
         window.onload = startApp;
         } 
     </script>
