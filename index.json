@@ -27,7 +27,7 @@
       "background_old": "EDITED/PC/valve/gfx/vgui/resource/background/shell/splash.png",
       "manual": "",
       "manual_external": "",
-      "music": "ORIGINAL/PC/cstrike/media/gamestartup.mp3",
+      "music": "ORIGINAL/PC/valve/media/gamestartup.mp3",
       "sound_click": "ORIGINAL/PC/valve/sound/Ui/buttonclick.wav",
       "sound_click_release": "ORIGINAL/PC/valve/sound/Ui/buttonclickrelease.wav",
       "buttonrollover": "ORIGINAL/PC/valve/sound/Ui/buttonrollover.wav"
@@ -79,6 +79,7 @@
     }
   ]
 }
+
 
 
 
