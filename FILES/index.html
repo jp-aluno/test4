@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>λ Engine: V11</title>
-    <link href='/ORIGINAL/PC/cstrike/icon.ico' rel='icon' type='image/x-icon'/>
-    <link href='/EDITED/PC/cstrike/icon.png' rel='icon' sizes='32x32'/>	
+    <link href='ORIGINAL/PC/cstrike/icon.ico' rel='icon' type='image/x-icon'/>
+    <link href='EDITED/PC/cstrike/icon.png' rel='icon' sizes='32x32'/>	
     <meta content='width=device-width, initial-scale=1.0, interactive-widget=resizes-content' name='viewport'/>
     
     <script src="https://cdn.jsdelivr.net/gh/jonnypaes/console.js/console-min.js"></script> 
@@ -176,14 +176,14 @@
             BASE_URL = (window.location.protocol + '//' + window.location.hostname + window.location.pathname);
             
             // Set Placeholder
-            const defaultTarget = `${BASE_URL}FILES/${CURRENT_PLATFORM.toUpperCase()}/${CURRENT_PRODUCT}/`;
+            const defaultTarget = `${BASE_URL}/${CURRENT_PLATFORM.toUpperCase()}/${CURRENT_PRODUCT}/`;
             document.getElementById('jsonPathInput').placeholder = defaultTarget;
 
             try {
                 log(`Mounting VFS: ${CURRENT_PLATFORM}/${CURRENT_PRODUCT}`);
                 
                 const fetchPrefix = CURRENT_JSON || defaultTarget;
-                const extensionPrefix = CURRENT_JSON || `${BASE_URL}FILES/extensions/${CURRENT_PLATFORM}`;
+                const extensionPrefix = CURRENT_JSON || `${BASE_URL}/extensions/${CURRENT_PLATFORM}`;
 
                 const [r1, r2, r3] = await Promise.all([
                     fetch(`${fetchPrefix}manifest.json`).catch(() => null),
