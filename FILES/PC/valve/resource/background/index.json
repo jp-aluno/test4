@@ -1,0 +1,25 @@
+{
+  "name": "root",
+  "children": [
+    {
+      "name": "images",
+      "type": "directory",
+      "children": [
+        { "name": "800_1_a_loading.png", "type": "file" },
+        { "name": "800_1_b_loading.png", "type": "file" },
+        { "name": "800_1_c_loading.png", "type": "file" },
+        { "name": "800_1_d_loading.png", "type": "file" },
+
+        { "name": "800_2_a_loading.png", "type": "file" },
+        { "name": "800_2_b_loading.png", "type": "file" },
+        { "name": "800_2_c_loading.png", "type": "file" },
+        { "name": "800_2_d_loading.png", "type": "file" },
+
+        { "name": "800_3_a_loading.png", "type": "file" },
+        { "name": "800_3_b_loading.png", "type": "file" },
+        { "name": "800_3_c_loading.png", "type": "file" },
+        { "name": "800_3_d_loading.png", "type": "file" }
+      ]
+    }
+  ]
+}
