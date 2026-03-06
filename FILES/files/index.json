@@ -1,1 +1,166 @@
-
+{
+  "categories": [
+    {
+      "category": "Sounds",
+      "type": "audio",
+      "icon": "🔊",
+      "extensions": [
+        {
+          "extension": ".wav",
+          "platform": "ALL",
+          "mimetype": "audio/wav",
+          "magic": ["52494646"],
+          "description": "Standard uncompressed audio files."
+        },
+        {
+          "extension": ".wav",
+          "platform": "PS2",
+          "mimetype": "audio/x-wav-ps2",
+          "parameters": { "codec": "PCM_S16LE", "sample_rate": 44100, "channels": 1, "endianness": "little" },
+          "description": "Uncompressed mono dialogue/env effects for PS2."
+        },
+        {
+          "extension": ".vag",
+          "platform": "PS2",
+          "mimetype": "audio/x-ps2-vag",
+          "magic": ["56414770"],
+          "parameters": { "codec": "ADPCM_PSX", "sample_rate": 44100, "block_align": 16, "interleave": 0, "header": "VAGp" },
+          "description": "Compressed PS2-specific audio data."
+        }
+      ]
+    },
+    {
+      "category": "Models",
+      "type": "model",
+      "icon": "👾",
+      "extensions": [
+        {
+          "extension": ".smd",
+          "platform": "ALL",
+          "mimetype": "text/plain",
+          "description": "Standard 3D model files (mesh and skeleton)."
+        },
+        {
+          "extension": ".dol",
+          "platform": "PS2",
+          "mimetype": "application/x-ps2-dol",
+          "description": "3D geometry and animation data for PS2 NPCs/Physics."
+        },
+        {
+          "extension": ".mdl",
+          "platform": "PC",
+          "mimetype": "application/octet-stream",
+          "magic": ["49445354"],
+          "description": "Compiled 3D model files for PC."
+        }
+      ]
+    },
+    {
+      "category": "Maps",
+      "type": "map",
+      "icon": "🧱",
+      "extensions": [
+        {
+          "extension": ".map",
+          "platform": "ALL",
+          "mimetype": "text/plain",
+          "description": "Uncompiled map source files."
+        },
+        {
+          "extension": ".bs2",
+          "platform": "PS2",
+          "mimetype": "application/x-game-bs2",
+          "description": "Compiled geometry for PS2 levels."
+        },
+        {
+          "extension": ".bsp",
+          "platform": "PC",
+          "mimetype": "application/x-quake-bsp",
+          "magic": ["1E000000", "56425350"],
+          "description": "Compiled binary space partition map for PC."
+        },
+        {
+          "extension": ".rmf",
+          "platform": "PC",
+          "mimetype": "application/octet-stream",
+          "magic": ["524D46"],
+          "description": "Rich Map Format; editor-specific source."
+        }
+      ]
+    },
+    {
+      "category": "Image",
+      "type": "image",
+      "icon": "🖼️",
+      "extensions": [
+        {
+          "extension": ".png",
+          "platform": "ALL",
+          "mimetype": "image/png",
+          "magic": ["89504E47"],
+          "description": "Portable Network Graphics for textures and UI."
+        },
+        {
+          "extension": ".tga",
+          "platform": "PC",
+          "mimetype": "image/x-targa",
+          "description": "Targa graphic files for high-fidelity textures."
+        },
+        {
+          "extension": ".bmp",
+          "platform": "PC",
+          "mimetype": "image/bmp",
+          "magic": ["424D"],
+          "description": "Standard bitmap image files."
+        },
+        {
+          "extension": ".ico",
+          "platform": "PC",
+          "mimetype": "image/x-icon",
+          "magic": ["00000100"],
+          "description": "Menu icons and save-game indicators."
+        }
+      ]
+    },
+    {
+      "category": "Navigation",
+      "type": "navigation",
+      "icon": "🗺️",
+      "extensions": [
+        {
+          "extension": ".nod",
+          "platform": "PS2",
+          "mimetype": "application/x-ps2-nodes",
+          "description": "AI pathfinding nodes for NPCs."
+        }
+      ]
+    },
+    {
+      "category": "Interface",
+      "type": "interface",
+      "icon": "🖥️",
+      "extensions": [
+        {
+          "extension": ".psi",
+          "platform": "PS2",
+          "mimetype": "image/x-ps2-psi",
+          "description": "PS2 UI graphics (menus, buttons)."
+        }
+      ]
+    },
+    {
+      "category": "Archive",
+      "type": "archive",
+      "icon": "📦",
+      "extensions": [
+        {
+          "extension": ".PAK",
+          "platform": "ALL",
+          "mimetype": "application/octet-stream",
+          "magic": ["5041434B"],
+          "description": "Package file bundling multiple game assets."
+        }
+      ]
+    }
+  ]
+}
