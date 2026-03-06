@@ -6,9 +6,188 @@
   <link rel='manifest' href='manifest.json' />
   <!-- <meta http-equiv="refresh" content="0; url=EDITED/"> -->
   
-  <title>Redirecting...</title>
+  <title>Products & Platforms</title>
+
+  <style>
+      :root { --bg: #050508; --accent: #00ff00; --panel: rgba(15, 15, 25, 0.9); }
+      body { background: var(--bg); color: #fff; font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; overflow: hidden; }
+
+      /* Fullscreen Background Layer */
+      #bg-canvas {
+          position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+          background-size: cover; background-position: center;
+          z-index: -1; transition: background-image 0.8s ease-in-out, filter 0.5s;
+          filter: brightness(0.3) blur(2px);
+      }
+      .focused-mode #bg-canvas { filter: brightness(0.5) blur(0px); }
+
+      #app {
+          display: flex; flex-direction: column; align-items: center;
+          justify-content: center; height: 100vh; text-align: center;
+      }
+
+      .grid { display: flex; gap: 25px; z-index: 10; transition: transform 0.4s; }
+
+      /* Game & Platform Cards */
+      .card {
+          background: var(--panel); border: 1px solid #333; padding: 40px;
+          border-radius: 8px; cursor: pointer; transition: 0.3s; min-width: 160px;
+          backdrop-filter: blur(10px); text-transform: uppercase; letter-spacing: 2px;
+      }
+      .card:hover {
+          border-color: var(--accent); transform: scale(1.05);
+          box-shadow: 0 0 30px rgba(0, 255, 0, 0.2);
+          background: rgba(20, 40, 20, 0.8);
+      }
+
+      /* Navigation Menu */
+      #nav-bar {
+          position: fixed; bottom: -100px; display: flex; gap: 15px;
+          transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+      #nav-bar.active { bottom: 50px; }
+      .nav-item {
+          padding: 12px 24px; background: #000; border-radius: 4px;
+          cursor: pointer; font-weight: bold; border-bottom: 3px solid transparent;
+      }
+
+      #status { position: fixed; top: 20px; right: 20px; font-family: monospace; font-size: 11px; color: #666; }
+      .back-btn { position: fixed; top: 20px; left: 20px; background: none; border: 1px solid #444; color: #888; cursor: pointer; padding: 5px 15px; }
+      .back-btn:hover { color: #fff; border-color: #fff; }
+  </style>  
+
 </head>
 <body>
-  <p>If you are not redirected automatically, <a href="EDITED/">click here</a>.</p>
+
+    <div id="bg-canvas"></div>
+    <div id="status">INIT...</div>
+    <button class="back-btn" id="btn-back" style="display:none" onclick="startApp()">← ESC</button>
+
+    <div id="app">
+        <h1 id="title">SELECT PLATFORM</h1>
+        <div id="main-grid" class="grid"></div>
+        <div id="nav-bar"></div>
+    </div>
+
+    <audio id="sfx-channel"></audio>
+    <audio id="music-channel" loop></audio>
+
+    <script>
+        const API_BASE = "https://jp-aluno.github.io/test4/";
+        let db = null;
+
+        const ui = {
+            title: document.getElementById('title'),
+            grid: document.getElementById('main-grid'),
+            nav: document.getElementById('nav-bar'),
+            bg: document.getElementById('bg-canvas'),
+            back: document.getElementById('btn-back'),
+            status: document.getElementById('status'),
+            sfx: document.getElementById('sfx-channel'),
+            music: document.getElementById('music-channel')
+        };
+
+        // Resolve absolute URL
+        const getUrl = (path) => path.startsWith('http') ? path : API_BASE + path;
+
+        function log(msg) { ui.status.innerText = msg; console.log(`[SYSTEM]: ${msg}`); }
+
+        function playSfx(path) {
+            if (!path) return;
+            ui.sfx.src = getUrl(path);
+            ui.sfx.play().catch(e => log("SFX BLOCKED/MISSING"));
+        }
+
+        function playMusic(path) {
+            if (!path) return;
+            const target = getUrl(path);
+            if (ui.music.src === target) return;
+            ui.music.src = target;
+            ui.music.volume = 0.5;
+            ui.music.play().catch(e => log("MUSIC BLOCKED"));
+        }
+
+        async function startApp() {
+            log("FETCHING DATA...");
+            if (!db) {
+                const res = await fetch(API_BASE + "index.json");
+                db = await res.json();
+            }
+
+            ui.title.innerText = "SELECT PLATFORM";
+            ui.grid.innerHTML = "";
+            ui.nav.classList.remove('active');
+            ui.back.style.display = "none";
+            ui.bg.style.backgroundImage = "none";
+            document.body.classList.remove('focused-mode');
+            ui.music.pause();
+
+            const platforms = [...new Set(db.platforms.map(p => p.platform))];
+            platforms.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `<h2>${p}</h2>`;
+                card.onclick = () => {
+                    const sample = db.platforms.find(x => x.platform === p);
+                    playSfx(sample.sound_click);
+                    renderLibrary(p);
+                };
+                ui.grid.appendChild(card);
+            });
+        }
+
+        function renderLibrary(platform) {
+            ui.title.innerText = platform;
+            ui.grid.innerHTML = "";
+            ui.back.style.display = "block";
+            
+            db.platforms.filter(x => x.platform === platform).forEach(game => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `<h3>${game.name}</h3>`;
+                
+                card.onmouseenter = () => {
+                    ui.bg.style.backgroundImage = `url('${getUrl(game.background)}')`;
+                    playSfx(game.buttonrollover);
+                };
+
+                card.onclick = () => {
+                    log(`LAUNCHING ${game.name.toUpperCase()}...`);
+                    playMusic(game.music);
+                    playSfx(game.sound_click_release);
+                    renderGameView(game);
+                };
+                ui.grid.appendChild(card);
+            });
+        }
+
+        function renderGameView(game) {
+            document.body.classList.add('focused-mode');
+            ui.title.innerText = game.name;
+            ui.grid.innerHTML = `<img src="${getUrl(game.icon)}" style="width:128px; height:128px; filter:drop-shadow(0 0 20px #fff);">`;
+            
+            ui.nav.innerHTML = "";
+            ui.nav.classList.add('active');
+
+            db.navigation.forEach(n => {
+                const item = document.createElement('div');
+                item.className = 'nav-item';
+                item.innerHTML = `${n.emoji} ${n.menu}`;
+                item.style.color = n.color_hex;
+                
+                item.onmouseenter = () => {
+                    item.style.borderColor = n.color_hex;
+                    playSfx(game.buttonrollover);
+                };
+                item.onmouseleave = () => item.style.borderColor = 'transparent';
+                item.onclick = () => playSfx(game.sound_click);
+                
+                ui.nav.appendChild(item);
+            });
+        }
+
+        window.onload = startApp;
+    </script>
+  
 </body>
 </html>
