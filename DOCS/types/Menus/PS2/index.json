@@ -1,0 +1,97 @@
+{
+  "project_metadata": {
+    "target": "Half-Life PS2 Launcher (GoldSrc Port)",
+    "module_path": "Launcher/",
+    "version_hint": "1.1.3"
+  },
+  "architecture": {
+    "Launcher/HalfLife.cpp": {
+      "context": "Main Entry / State Initialization",
+      "symbols": ["Player", "pause_sound", "2712128302580", "END", "NAME", "STATE_SELECTION_LINEAR", "TRUE", "GUI_ELEMENT_STATE"]
+    },
+    "Launcher/GUIElementDependency.cpp": {
+      "context": "Conditional Logic / Hierarchy",
+      "symbols": ["END", "DEPENDS_VALUE", "Z_PLANE", "SCREEN_RECT", "TEXTURE", "TEXTURE_RECT", "COLOR_MODULATE", "GUI_CAPTION", "GUI_INPUT", "WHILE_FOCUS", "GET_FOCUS", "LOSE_FOCUS", "ON_RENDER"]
+    },
+    "Launcher/GUIElementInput.cpp": {
+      "context": "Hardware Input Mapping",
+      "logic_headers": ["END", "ANY", "GUI_COMMAND"],
+      "physical_buttons": ["UP", "DOWN", "LEFT", "RIGHT", "TRIANGLE", "CIRCLE", "X", "SQUARE", "RIGHTSHOULDER1", "RIGHTSHOULDER2", "R3", "LEFTSHOULDER1", "LEFTSHOULDER2", "L3", "SELECT", "START", "DEL", "MOUSE1"],
+      "player_1_hooks": ["P1_UP", "P1_DOWN", "P1_LEFT", "P1_RIGHT", "P1_TRIANGLE", "P1_CIRCLE", "P1_X", "P1_SQUARE", "P1_RIGHTSHOULDER1", "P1_RIGHTSHOULDER2", "P1_R3", "P1_LEFTSHOULDER1", "P1_LEFTSHOULDER2", "P1_L3", "P1_SELECT", "P1_START"],
+      "player_2_hooks": ["P2_UP", "P2_DOWN", "P2_LEFT", "P2_RIGHT", "P2_TRIANGLE", "P2_CIRCLE", "P2_X", "P2_SQUARE", "P2_RIGHTSHOULDER1", "P2_RIGHTSHOULDER2", "P2_R3", "P2_LEFTSHOULDER1", "P2_LEFTSHOULDER2", "P2_L3", "P2_SELECT", "P2_START"]
+    },
+    "Launcher/GUIElementCaption.cpp": {
+      "context": "Text Rendering & Rasterization",
+      "formatting": ["SCALE", "COLORS", "WRAP", "TEXT", "PARAMS"],
+      "gl_render_states": ["BLEND_FUNC", "TEX_ENV", "GL_ONE", "GL_SRC_ALPHA", "GL_ONE_MINUS_SRC_ALPHA", "GL_DST_COLOR", "GL_SRC_COLOR", "GL_ZERO", "GL_MODULATE", "GL_REPLACE", "GL_ALPHA"]
+    },
+    "Launcher/GUIScreen.cpp": {
+      "context": "Screen State Management",
+      "symbols": ["END", "EQUALS", "NOTEQUALS", "GREATERTHAN", "LESSTHAN", "FADE_IN_TIME", "FADE_OUT_TIME", "GUI_GENERIC"]
+    },
+    "Launcher/GUICommand.cpp": {
+      "context": "Logic Scripting Parser",
+      "symbols": ["$param%d", "Variable", "NAME", "Numeric", "WRAP", "TRUE", "LERP_TIME", "LOOP", "RUNNING"]
+    },
+    "Launcher/GUIVariableManager.cpp": {
+      "context": "Internal Registry / Memory Buffers",
+      "data_types": {
+        "Float": ["INITIAL_VALUE", "MAX_VALUE", "MIN_VALUE"],
+        "Integer": ["INITIAL_VALUE", "MAX_VALUE", "MIN_VALUE"],
+        "String": ["VALUE"],
+        "Engine_Constants": ["GUI_VARIABLE_FLOAT", "GUI_VARIABLE_STRING"]
+      }
+    },
+    "Launcher/GUIActionUserDefined.cpp": {
+      "context": "Instruction Set Architecture (ISA)",
+      "actions": [
+        {"cmd": "GUI_ACTION_PLAY_SOUND", "args": ["$param0", "$param1"]},
+        {"cmd": "GUI_ACTION_SET_FOCUS", "args": ["$param0"]},
+        {"cmd": "GUI_ACTION_APP_STRING", "args": ["$param%d"]},
+        {"cmd": "GUI_ACTION_EXIT", "args": null},
+        {"cmd": "GUI_ACTION_REFRESH", "args": null},
+        {"cmd": "GUI_ACTION_SET_VARIABLE", "args": ["$param0", "$param1", "NULL"]},
+        {"cmd": "GUI_ACTION_SET_VARIABLE_VARIABLE", "args": ["$param0", "$param1"]},
+        {"cmd": "GUI_ACTION_ADD_VARIABLE", "args": ["$param0", "$param1"]},
+        {"cmd": "GUI_ACTION_SET_GAME", "args": ["$param0", "$param1"]},
+        {"cmd": "GUI_ACTION_MODIFY_VIEWPORT", "args": ["$param0"]},
+        {"cmd": "GUI_ACTION_VCR_VARIABLE", "args": ["$param0", "$param1", "PAUSE", "PLAY", "REWIND"]},
+        {"cmd": "GUI_ACTION_PRINTF", "args": ["$param0"]},
+        {"cmd": "GUI_ACTION_COPY_ATTRIBUTE", "args": ["$param0", "$param1", "$param2"]}
+      ]
+    },
+    "Launcher/GUIActionAddOnDisc.cpp": {
+      "context": "Expansion/DLC Management",
+      "symbols": ["AddOnSwapState", "AddOnErrorMessage", "GUI_ACTION_ADD_ON_STATE", "Initialize", "Run", "Set", "SDJ"]
+    },
+    "Launcher/GUIActionGameSave": {
+      "context": "VMC (Virtual Memory Card) Operations",
+      "io_states": ["Initialize", "Shutdown", "ScanSave", "ScanSlotState", "ScanLoad", "SaveToMemFS", "DeleteMemFSSave", "UpdateCardAvailability", "UpdateListing", "VerifySpace", "IsEnoughSpace", "CreateSave", "CreateSaveState", "LoadSave", "LoadSaveState", "DeleteSave", "DeleteSaveState", "FormatCard", "FormatCardState", "IsOverwrite", "InitializeCheck", "RunCheck", "SetGameName", "VerifyCardPresence", "GameSaveCheckState"]
+    },
+    "Launcher/GUIActionSystemSaveManualUse": {
+      "context": "Configuration Persistence",
+      "files": ["MarkedSettings.cfg", "EndingSettings.cfg"],
+      "ops": ["MarkStartingSettings", "HaveSettingsChanged", "Options_HaveSettingsChanged", "LoadSettings_ScanSlotState", "LoadSettings_LoadState", "SaveSettings_ScanSlotState", "SaveSettings_CreateSaveState", "SaveSettings_UpdateSaveState"]
+    },
+    "Launcher/GUIActionBindHelper.cpp": {
+      "context": "Controller Translation Layer",
+      "device_polling": ["GUI_ACTION_IS_DEVICE_CONNECTED", "DUALSHOCK1", "KEYBOARD", "MOUSE", "DUALSHOCK2", "ANY", "ALL_DEVICE_HASH"],
+      "binding_logic": ["GUI_ACTION_BIND_HELPER", "KEY_REP", "PRESET", "CONTROLLER1_MODE", "CONTROLLER2_MODE", "KEYBOARD_MODE", "MOUSE_MODE", "UPDATE_BIND", "UNBIND_ACTION", "BIND_TITS", "FIND_PRESET", "IN_KEY_RANGE_VALID", "IN_KEY_NUMBER", "TRANSLATE_GLYPHS", "APPLY_PRESET", "UPDATE_CUSTOM_BINDS", "SAVE_SETTINGS", "TitsConfigNumber", "Graphic Number"],
+      "goldsrc_bridge": {
+        "p1_commands": ["+forward 0", "+back 0", "+moveleft 0", "+moveright 0"],
+        "p2_commands": ["+forward 1", "+back 1", "+moveleft 1", "+moveright 1"]
+      }
+    },
+    "Launcher/GUI.cpp": {
+      "context": "Global Interface Handler",
+      "system_toggles": [
+        {"cmd": "GUI_ACTION_SET_VOLUME", "vars": ["BGMVolume", "EffectVolume"]},
+        {"cmd": "GUI_ACTION_MEMORY_SAVE", "vars": ["CreateMemorySave", "DoesMemorySaveExist", "MemorySaveExists"]},
+        {"cmd": "GUI_ACTION_DISPLAY_MODE", "vars": ["NTSC", "PAL"]},
+        {"cmd": "GUI_ACTION_VIBRATE", "vars": ["$param0", "$param1", "$param2", "$param3"]},
+        {"cmd": "BrightnessValue", "format": "gamma %f"}
+      ],
+      "parser_macros": ["!include", "!define", "GUI_SCREEN", "GUI_ACTION", "CURRENT_GENERIC_FOCUS"]
+    }
+  }
+}
