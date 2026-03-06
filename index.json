@@ -8,7 +8,7 @@
       "icon_external": "https://ps2iodb.com/icon/halflife-systemdata",
       "background": "EDITED/PS2/GUIDATA/FRONTEND.PAK/menu-edited.png",
       "background_old": "EDITED/PS2/cstrike/gfx/vgui/resource/background/shell/background.png",
-      "manual": "ORIGINAL/PC/cstrike/manual/manual.htm",
+      "manual": "",
       "manual_external": "",
       "music": "EDITED/PS2/MUSIC/FELOOP.mp3",
       "sound_click": "EDITED/PS2/GUIDATA/GUISOUND.PAK/confirm.wav",
@@ -27,7 +27,7 @@
       "background_old": "EDITED/PC/valve/gfx/vgui/resource/background/shell/background.png",
       "manual": "",
       "manual_external": "",
-      "music": "ORIGINAL/PC/cstrike/media",
+      "music": "ORIGINAL/PC/cstrike/media/gamestartup.mp3",
       "sound_click": "ORIGINAL/PC/valve/sound/Ui/buttonclick.wav",
       "sound_click_release": "ORIGINAL/PC/valve/sound/Ui/buttonclickrelease.wav",
       "buttonrollover": "ORIGINAL/PC/valve/sound/Ui/buttonrollover.wav"
@@ -44,10 +44,10 @@
       "background_old": "EDITED/PC/cstrike/gfx/vgui/resource/background/shell/background.png",
       "manual": "ORIGINAL/PC/cstrike/manual/manual.htm",
       "manual_external": "",
-      "music": "ORIGINAL/PC/cstrike/media/",
-      "sound_click": "ORIGINAL/PC/valve/sound/Ui",
-      "sound_click_release": "ORIGINAL/PC/valve/sound/Ui",
-      "buttonrollover": "ORIGINAL/PC/valve/sound/Ui"
+      "music": "ORIGINAL/PC/cstrike/media/gamestartup.mp3",
+      "sound_click": "ORIGINAL/PC/valve/sound/Ui/buttonclick.wav",
+      "sound_click_release": "ORIGINAL/PC/valve/sound/Ui/buttonclickrelease.wav",
+      "buttonrollover": "ORIGINAL/PC/valve/sound/Ui/buttonrollover.wav"
     }
   ],
 
@@ -79,4 +79,5 @@
     }
   ]
 }
+
 
