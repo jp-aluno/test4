@@ -7,7 +7,7 @@
       "icon": "EDITED/PS2/ICONS/SYSSAVE.PAK/lambda.ico.obj",
       "icon_external": "https://ps2iodb.com/icon/halflife-systemdata",
       "background": "EDITED/PS2/GUIDATA/FRONTEND.PAK/menu-edited.png",
-      "background_old": "EDITED/PS2/cstrike/gfx/vgui/resource/background/shell/background.png",
+      "background_old": "",
       "manual": "",
       "manual_external": "",
       "music": "EDITED/PS2/MUSIC/FELOOP.mp3",
@@ -79,6 +79,7 @@
     }
   ]
 }
+
 
 
 
