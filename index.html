@@ -248,9 +248,9 @@
                 // 2. Set the Href
                 // If n.path is "/" or empty, it goes to ROOT_URL. 
                 // Otherwise, it appends the path.
-                item.href = n.path === "/" ? ROOT_URL : ROOT_URL + n.path;
+                item.href = n.path === "/" ? ROOT_URL : ROOT_URL + n.menu;
             
-                item.innerHTML = `${n.emoji} ${n.menu}`;
+                item.innerHTML = `${n.menu}`; // ${n.emoji} 
                 item.style.color = n.color_hex;
             
                 item.onmouseenter = () => {
