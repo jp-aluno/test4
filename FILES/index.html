@@ -375,6 +375,18 @@
             const a = document.createElement('a'); a.href = url; a.download = name; a.click();
         };
 
+        function generateMenuNumber(segments) {
+            if (!segments || segments.length === 0) return "1";
+        
+            const numbers = [];
+        
+            segments.forEach((seg, index) => {
+                numbers.push(index + 1);
+            });
+        
+            return numbers.join("-");
+        }
+        
         async function router() {
             const hash = location.hash.startsWith('#') ? location.hash.substring(1) : location.hash;
             const result = await resolveTarget(hash);
@@ -386,6 +398,9 @@
             }
 
             const { node, path, segments, depth, isPak } = result;
+            const menuNumber = generateMenuNumber(segments);
+            document.getElementById("menuTitle").textContent = menuNumber;
+            
             const currentParams = window.location.hash.includes('?') ? "?" + window.location.hash.split('?')[1] : "";
             
             let breadcrumbs = `<a href="#/${currentParams}" class="crumb" data-depth="1">Root</a>`;
