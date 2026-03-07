@@ -242,7 +242,9 @@
                 item.className = 'nav-item';
                 item.style.textDecoration = 'none'; // Keep clean look
                 item.style.display = 'inline-block';
-                
+
+                const ROOT_URL = (window.location.protocol + '//' + window.location.hostname);
+                const ROOT_NODE = (window.location.pathname);
                 // 2. Set the Href
                 // If n.path is "/" or empty, it goes to ROOT_URL. 
                 // Otherwise, it appends the path.
