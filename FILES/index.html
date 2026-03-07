@@ -144,7 +144,11 @@
             if(val) {
                 CURRENT_JSON = val;
                 log(`Injecting external JSON path: ${val}`);
-                boot(); // Re-trigger boot sequence
+                boot();
+            } else {
+                log(`Trying with placeholder: ${val}`);
+                boot();
+                val = document.getElementById('jsonPathInput').placeholder;
             }
         }
 
