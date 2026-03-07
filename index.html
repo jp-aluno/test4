@@ -156,7 +156,7 @@
                     log(`LAUNCHING ${game.name.toUpperCase()}...`);
                     playMusic(game.music);
                     playSfx(game.sound_click_release);
-                    renderGameView(game);
+                    renderGameView(game.platform, game.product);
                 };
                 ui.grid.appendChild(card);
             });
@@ -186,14 +186,17 @@
             log("SYSTEM READY");
         }
         
-        function renderGameView(game) {
+        function renderGameView(game, platform) {
             document.body.classList.add('focused-mode');
             ui.title.innerText = game.name;
             ui.grid.innerHTML = game.icon ? `<img src="${getUrl(game.icon)}" style="width:128px; height:128px;">` : '';
             
             ui.nav.innerHTML = "";
             ui.nav.classList.add('active');
-        
+          
+            const safePlatform = encodeURIComponent(platform.toLowerCase());
+            const safeProduct = encodeURIComponent(game.name.toLowerCase());    
+          
             db.navigation.forEach(n => {
                 // Create as a real Anchor tag
                 const item = document.createElement('a');
@@ -201,7 +204,8 @@
                 
                 // Logical Pathing: 
                 // If n.path is "/" it goes to the detected CURRENT_ROOT
-                item.href = (n.path === "/") ? CURRENT_ROOT : CURRENT_ROOT + n.menu;
+                item.href = `${basePath}/${safePlatform}/${safeProduct}`;
+                //item.href = (n.path === "/") ? CURRENT_ROOT : CURRENT_ROOT + n.menu;
                 
                 item.style.textDecoration = "none";
                 item.innerHTML = `${n.menu}`; // ${n.emoji} 
