@@ -201,10 +201,10 @@
                 
                 // Logical Pathing: 
                 // If n.path is "/" it goes to the detected CURRENT_ROOT
-                item.href = (n.path === "/") ? CURRENT_ROOT : CURRENT_ROOT + n.path;
+                item.href = (n.path === "/") ? CURRENT_ROOT : CURRENT_ROOT + n.menu;
                 
                 item.style.textDecoration = "none";
-                item.innerHTML = `${n.emoji} ${n.menu}`;
+                item.innerHTML = `${n.menu}`; // ${n.emoji} 
                 item.style.color = n.color_hex;
         
                 item.onmouseenter = () => {
