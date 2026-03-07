@@ -25,7 +25,7 @@
     <style>
         :root { 
             --hl: #f2ad0d; --bg: #0d0d0d; --panel: #161616; --code: #00ff00; 
-            --size: 64px; --radius: 10px; --gap: 18px;
+            --size: 48px; --radius: 10px; --gap: 18px;
             
             /* Palette */
             --level-1-hex: #ff0000; 
@@ -65,11 +65,11 @@
         .icon { font-size: calc(var(--size) * 0.62); line-height: 1; }
         
         /* Card Levels */
-        .level-1 { border: 3px solid rgba(220, 40, 40, 0.95); }
+        .level-1 { color: var(--level-1-hex); border: 3px solid rgba(220, 40, 40, 0.95); }
         .level-1:hover { border-color: #ff5050; box-shadow: 0 8px 20px rgba(220, 40, 40, 0.15); }
-        .level-2 { border: 5px double rgba(200, 150, 0, 0.95); padding: 13px 3px; /* Amarelo / PAK */ }
+        .level-2 { color: var(--level-2-hex); border: 5px double rgba(200, 150, 0, 0.95); padding: 13px 3px; /* Amarelo / PAK */ }
         .level-2:hover { border-color: #ffd23c; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12); }
-        .level-3 { border: 4px groove rgba(30, 160, 90, 0.95); }
+        .level-3 { color: var(--level-3-hex); border: 4px groove rgba(30, 160, 90, 0.95); }
         .level-3:hover { border-color: #37c878; box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.35); }
 
         /* File View */
