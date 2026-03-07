@@ -177,7 +177,7 @@
             BASE_PATH = (window.location.pathname.toUpperCase());
             
             // Set Placeholder
-            const defaultTarget = `${BASE_URL}/${CURRENT_PLATFORM.toUpperCase()}/${CURRENT_PRODUCT}/`;
+            const defaultTarget = `${BASE_URL}/${BASE_PATH.toUpperCase()}/${CURRENT_PLATFORM.toUpperCase()}/${CURRENT_PRODUCT}/`;
             document.getElementById('jsonPathInput').placeholder = defaultTarget;
 
             try {
