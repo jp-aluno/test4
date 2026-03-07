@@ -174,7 +174,7 @@
             if(!CURRENT_JSON) CURRENT_JSON = params.get('json') || '';
 
             BASE_URL = (window.location.protocol + '//' + window.location.hostname);
-            BASE_PATH = (window.location.pathname.toUpperCase());
+            BASE_PATH = (window.location.pathname);
             
             // Set Placeholder
             const defaultTarget = `${BASE_URL}/${BASE_PATH}/${CURRENT_PLATFORM.toUpperCase()}/${CURRENT_PRODUCT}/`;
